@@ -1,0 +1,40 @@
+# .gitignore to include common ignored files across the jocasta project
+
+#
+# global - common across jetbrains products
+#
+
+# directory-based project configuration
+.idea/
+
+# file-based project configuration
+*.iws
+*.iml
+*.ipr
+
+# macos directory attribute configuration
+**/.DS_Store
+
+
+
+#
+# build - build tool output and configuration
+#
+
+# gradle project cache
+.gradle/
+
+# gradle local environment properties
+**/local.properties
+
+
+
+#
+# ide - scope to specific jetbrains products
+#
+
+# android studio - project build output
+build/
+
+# android studio - layout inspector capture output
+captures/
