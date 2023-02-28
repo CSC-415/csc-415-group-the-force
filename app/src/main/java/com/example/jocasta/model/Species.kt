@@ -1,6 +1,4 @@
-package com.example.swapi
-
-import java.util.Date
+package com.example.jocasta.model
 
 data class Species(
     val name: String,
