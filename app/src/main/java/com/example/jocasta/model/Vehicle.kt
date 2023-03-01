@@ -14,6 +14,6 @@ class Vehicle (
     val v_cargo_capacity : String,
     val v_consumables : String,
     val v_films : List<String>? = null,
-    val pilots : List<String>? = null,
-    val url : String
+    val v_pilots : List<String>? = null,
+    val v_url : String
     )
