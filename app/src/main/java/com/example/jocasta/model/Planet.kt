@@ -1,4 +1,4 @@
-package com.example.swapi
+package com.example.jocasta.model
 
 data class Planet(
     val name: String,
