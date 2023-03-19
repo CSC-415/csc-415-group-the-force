@@ -1,5 +1,8 @@
 package com.example.jocasta.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
  * A data class to represent a single film resource.
  *
@@ -17,18 +20,22 @@ package com.example.jocasta.model
  * @property planets the list of planet identifiers that appear in this film
  * @property source the source swapi.dev hypermedia resource URL
  */
+@Serializable
 data class Film(
-    val id: Int,
     val title: String,
-    val episode: Int,
+    @SerialName("episode_id")
+    val id: Int,
+    @SerialName("opening_crawl")
     val openingCrawl: String,
     val director: String,
     val producer: String,
+    @SerialName("release_date")
     val releaseDate: String,
-    val species: List<Int>? = null,
-    val starships: List<Int>? = null,
-    val vehicles: List<Int>? = null,
-    val characters: List<Int>? = null,
-    val planets: List<Int>? = null,
+    val characters: List<String>,
+    val planets: List<String>,
+    val starships: List<String>,
+    val vehicles: List<String>,
+    val species: List<String>,
+    @SerialName("url")
     val source: String
 )
