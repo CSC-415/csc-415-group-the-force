@@ -76,7 +76,7 @@ data class Person(
  * @property people the resource data set, e.g., List<Person>
  */
 data class PersonSet(
-    val count: Int,
+    var count: Int,
 
     @field:JsonAdapter(DeserializeInt::class)
     var next: Int,
@@ -87,3 +87,13 @@ data class PersonSet(
     @field:SerializedName("results")
     var people: List<Person>
 ): ResourceSet
+
+/**
+ * A default [PersonSet] containing baseline attribute values.
+ */
+val DefaultPersonSet = PersonSet(
+    count = 0,
+    next = 1,
+    previous = -1,
+    people = emptyList()
+)
