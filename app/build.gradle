@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -52,7 +54,21 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
+    def hilt_version = "2.45"
+    def retrofit_version = "2.9.0"
+
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
     def nav_version = "2.5.3"
     implementation "androidx.navigation:navigation-compose:$nav_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
