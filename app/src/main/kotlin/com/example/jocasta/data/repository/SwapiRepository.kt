@@ -1,5 +1,6 @@
 package com.example.jocasta.data.repository
 
+import com.example.jocasta.data.model.FilmSet
 import com.example.jocasta.data.model.PersonSet
 import com.example.jocasta.data.model.ResourceSetResponse
 
@@ -9,6 +10,17 @@ import com.example.jocasta.data.model.ResourceSetResponse
  *  result.
  */
 interface SwapiRepository {
+
+    /**
+     * Fetch a [FilmSet] with respect to resource pagination as indicated by the query parameter.
+     *
+     * @param page the response page number indicating the paginated data subset that is required.
+     *
+     * @return a [FilmSet] containing appropriate data with respect to query parameter [page].
+     */
+    suspend fun fetchFilms(
+        page: Int
+    ): ResourceSetResponse
 
     /**
      * Fetch a [PersonSet] with respect to resource pagination as indicated by the query parameter.
