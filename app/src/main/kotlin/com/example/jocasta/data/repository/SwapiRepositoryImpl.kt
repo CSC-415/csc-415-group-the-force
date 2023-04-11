@@ -21,14 +21,7 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                FilmSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    films = body.films
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
         }
@@ -64,14 +57,7 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                PersonSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    people = body.people
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
         }
