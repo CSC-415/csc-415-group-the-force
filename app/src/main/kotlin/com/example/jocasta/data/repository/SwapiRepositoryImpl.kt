@@ -2,9 +2,7 @@ package com.example.jocasta.data.repository
 
 import android.util.Log
 import com.example.jocasta.data.SwapiClient
-import com.example.jocasta.data.model.FilmSet
-import com.example.jocasta.data.model.PersonSet
-import com.example.jocasta.data.model.ResourceSetResponse
+import com.example.jocasta.data.model.*
 import javax.inject.Inject
 
 class SwapiRepositoryImpl @Inject constructor(
@@ -54,6 +52,56 @@ class SwapiRepositoryImpl @Inject constructor(
                     next = body.next,
                     previous = body.previous,
                     people = body.people
+                )
+            )
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchPlanets(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchPlanets")
+
+        val response = client.fetchPlanets(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(
+                PlanetSet(
+                    count = body.count,
+                    next = body.next,
+                    previous = body.previous,
+                    planets = body.planets
+                )
+            )
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchSpecies(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchSpecies")
+
+        val response = client.fetchSpecies(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(
+                SpeciesSet(
+                    count = body.count,
+                    next = body.next,
+                    previous = body.previous,
+                    species = body.species
                 )
             )
         } else {

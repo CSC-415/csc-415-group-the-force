@@ -32,4 +32,12 @@ interface SwapiRepository {
     suspend fun fetchPeople(
         page: Int
     ): ResourceSetResponse
+
+    suspend fun fetchPlanets(
+        page: Int
+    ): ResourceSetResponse
+
+    suspend fun fetchSpecies(
+        page: Int
+    ): ResourceSetResponse
 }
