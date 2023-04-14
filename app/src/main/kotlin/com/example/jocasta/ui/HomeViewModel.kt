@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             val filmSet = DefaultFilmSet
 
-            while (filmSet.next > 0 && _personSetState.value !is ResourceSetFetchState.Failure) {
+            while (filmSet.next > 0 && _filmSetState.value !is ResourceSetFetchState.Failure) {
                 when (val response = swapiRepository.fetchFilms(filmSet.next)) {
                     is ResourceSetResponse.Success -> {
                         response.resourceSet as FilmSet
@@ -73,7 +73,9 @@ class HomeViewModel @Inject constructor(
 
             while (personSet.next > 0 && _personSetState.value !is ResourceSetFetchState.Failure) {
                 when (val response = swapiRepository.fetchPeople(personSet.next)) {
-                    is ResourceSetResponse.Success -> { response.resourceSet as PersonSet
+                    is ResourceSetResponse.Success -> {
+                        response.resourceSet as PersonSet
+
                         personSet.count = response.resourceSet.count
                         personSet.next = response.resourceSet.next
                         personSet.previous = response.resourceSet.previous
