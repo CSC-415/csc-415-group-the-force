@@ -15,47 +15,46 @@ val DefaultPlanetSet = PlanetSet(
 )
 
 data class PlanetSet(
-    @SerializedName("count")
+    @field:SerializedName("count")
     var count: Int,
     @field:JsonAdapter(DeserializeInt::class)
     var next: Int,
     @field:JsonAdapter(DeserializeInt::class)
     var previous: Int,
-    @SerializedName("results")
+    @field:SerializedName("results")
     var planets: List<Planet>
 ) : ResourceSet
 
 data class Planet(
-    @JsonAdapter(DeserializeInt::class)
+    @SerializedName("url")
+    @field:JsonAdapter(DeserializeInt::class)
     val id: Int,
-    @SerializedName("climate")
+    @field:SerializedName("climate")
     val climate: String,
-    @SerializedName("created")
+    @field:SerializedName("created")
     val created: String,
-    @SerializedName("diameter")
+    @field:SerializedName("diameter")
     val diameter: String,
-    @SerializedName("edited")
+    @field:SerializedName("edited")
     val edited: String,
-    @SerializedName("films")
+    @field:SerializedName("films")
     @field:JsonAdapter(DeserializeIntList::class)
     val films: List<Int>,
-    @SerializedName("gravity")
+    @field:SerializedName("gravity")
     val gravity: String,
-    @SerializedName("name")
+    @field:SerializedName("name")
     val name: String,
-    @SerializedName("orbital_period")
+    @field:SerializedName("orbital_period")
     val orbitalPeriod: String,
-    @SerializedName("population")
+    @field:SerializedName("population")
     val population: String,
-    @SerializedName("residents")
+    @field:SerializedName("residents")
     @field:JsonAdapter(DeserializeIntList::class)
     val people: List<Int>,
-    @SerializedName("rotation_period")
+    @field:SerializedName("rotation_period")
     val rotationPeriod: String,
-    @SerializedName("surface_water")
+    @field:SerializedName("surface_water")
     val surfaceWater: String,
-    @SerializedName("terrain")
-    val terrain: String,
-    @SerializedName("url")
-    val url: String
+    @field:SerializedName("terrain")
+    val terrain: String
 )

@@ -5,15 +5,15 @@ import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 
 data class SpeciesSet(
-    @SerializedName("count")
+    @field:SerializedName("count")
     var count: Int,
-    @SerializedName("next")
+    @field:SerializedName("next")
     @field:JsonAdapter(DeserializeInt::class)
     var next: Int,
-    @SerializedName("previous")
+    @field:SerializedName("previous")
     @field:JsonAdapter(DeserializeInt::class)
     var previous: Int,
-    @SerializedName("results")
+    @field:SerializedName("results")
     var species: List<Species>
 ) : ResourceSet
 
@@ -25,36 +25,37 @@ val DefaultSpeciesSet = SpeciesSet(
 )
 
 data class Species(
-    @SerializedName("average_height")
+    @SerializedName("url")
+    @field:JsonAdapter(DeserializeInt::class)
+    val id: Int,
+    @field:SerializedName("average_height")
     val averageHeight: String,
-    @SerializedName("average_lifespan")
+    @field:SerializedName("average_lifespan")
     val averageLifespan: String,
-    @SerializedName("classification")
+    @field:SerializedName("classification")
     val classification: String,
-    @SerializedName("created")
+    @field:SerializedName("created")
     val created: String,
-    @SerializedName("designation")
+    @field:SerializedName("designation")
     val designation: String,
-    @SerializedName("edited")
+    @field:SerializedName("edited")
     val edited: String,
-    @SerializedName("eye_colors")
+    @field:SerializedName("eye_colors")
     val eyeColors: String,
-    @SerializedName("films")
+    @field:SerializedName("films")
     @field:JsonAdapter(DeserializeInt::class)
     val films: List<Int>,
-    @SerializedName("hair_colors")
+    @field:SerializedName("hair_colors")
     val hairColors: String,
-    @SerializedName("homeworld")
+    @field:SerializedName("homeworld")
     val homeWorld: String?,
-    @SerializedName("language")
+    @field:SerializedName("language")
     val language: String,
-    @SerializedName("name")
+    @field:SerializedName("name")
     val name: String,
-    @SerializedName("people")
+    @field:SerializedName("people")
     @field:JsonAdapter(DeserializeInt::class)
     val people: List<Int>,
-    @SerializedName("skin_colors")
-    val skinColors: String,
-    @SerializedName("url")
-    val url: String
+    @field:SerializedName("skin_colors")
+    val skinColors: String
 )

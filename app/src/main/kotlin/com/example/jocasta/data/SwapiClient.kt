@@ -1,11 +1,20 @@
 package com.example.jocasta.data
 
+<<<<<<< HEAD
 import com.example.jocasta.data.model.Film
 import com.example.jocasta.data.model.FilmSet
 import com.example.jocasta.data.model.Person
 import com.example.jocasta.data.model.PersonSet
 import com.example.jocasta.data.model.PlanetSet
 import com.example.jocasta.data.model.SpeciesSet
+||||||| parent of f4818db (fixed code issues)
+import com.example.jocasta.data.model.FilmSet
+import com.example.jocasta.data.model.PersonSet
+import com.example.jocasta.data.model.PlanetSet
+import com.example.jocasta.data.model.SpeciesSet
+=======
+import com.example.jocasta.data.model.*
+>>>>>>> f4818db (fixed code issues)
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -71,9 +80,23 @@ interface SwapiClient {
         @Query("page") page: Int
     ): Response<PlanetSet>
 
+    @GET("planets/{id}/")
+    suspend fun fetchPlanet(
+        @Path("id") id: Int
+    ): Response<Planet>
+
     @GET("species/")
-    suspend fun fetchSpecies(
+    suspend fun fetchAllSpecies(
         @Query("page") page: Int
     ): Response<SpeciesSet>
+<<<<<<< HEAD
 >>>>>>> 87b17af (Added the code for the planet and species data models to fit the new data model schema)
+||||||| parent of f4818db (fixed code issues)
+=======
+
+    @GET("species/{id}/")
+    suspend fun fetchSpecies(
+        @Path("id") id: Int
+    ): Response<Species>
+>>>>>>> f4818db (fixed code issues)
 }

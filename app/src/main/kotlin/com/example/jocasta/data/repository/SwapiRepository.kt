@@ -58,8 +58,20 @@ interface SwapiRepository {
         page: Int
     ): ResourceSetResponse
 
-    suspend fun fetchSpecies(
+    suspend fun fetchPlanet(
+        id: Int
+    ): ResourceSetResponse
+
+    suspend fun fetchAllSpecies(
         page: Int
     ): ResourceSetResponse
+<<<<<<< HEAD
 >>>>>>> 87b17af (Added the code for the planet and species data models to fit the new data model schema)
+||||||| parent of f4818db (fixed code issues)
+=======
+
+    suspend fun fetchSpecies(
+        id: Int
+    ): ResourceSetResponse
+>>>>>>> f4818db (fixed code issues)
 }
