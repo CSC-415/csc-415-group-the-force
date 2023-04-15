@@ -2,9 +2,7 @@ package com.example.jocasta.data.repository
 
 import android.util.Log
 import com.example.jocasta.data.SwapiClient
-import com.example.jocasta.data.model.FilmSet
-import com.example.jocasta.data.model.PersonSet
-import com.example.jocasta.data.model.ResourceSetResponse
+import com.example.jocasta.data.model.*
 import javax.inject.Inject
 
 class SwapiRepositoryImpl @Inject constructor(
@@ -23,16 +21,27 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                FilmSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    films = body.films
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchFilm(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchFilm($id)")
+
+        val response = client.fetchFilm(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
         }
     }
 
@@ -48,16 +57,27 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                PersonSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    people = body.people
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchPerson(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchPerson($id)")
+
+        val response = client.fetchPerson(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
         }
     }
 }

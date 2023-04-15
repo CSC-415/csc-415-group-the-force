@@ -1,8 +1,6 @@
 package com.example.jocasta.data.repository
 
-import com.example.jocasta.data.model.FilmSet
-import com.example.jocasta.data.model.PersonSet
-import com.example.jocasta.data.model.ResourceSetResponse
+import com.example.jocasta.data.model.*
 
 /**
  * A resource repository interface meant to structure the application-side middleware service layer
@@ -23,6 +21,17 @@ interface SwapiRepository {
     ): ResourceSetResponse
 
     /**
+     * Fetch a [Film] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Film] whose identifier field matches argument [id].
+     */
+    suspend fun fetchFilm(
+        id: Int
+    ): ResourceResponse
+
+    /**
      * Fetch a [PersonSet] with respect to resource pagination as indicated by the query parameter.
      *
      * @param page the response page number indicating the paginated data subset that is required.
@@ -32,4 +41,15 @@ interface SwapiRepository {
     suspend fun fetchPeople(
         page: Int
     ): ResourceSetResponse
+
+    /**
+     * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Person] whose identifier field matches argument [id].
+     */
+    suspend fun fetchPerson(
+        id: Int
+    ): ResourceResponse
 }
