@@ -1,6 +1,5 @@
 package com.example.jocasta.data
 
-import com.example.jocasta.data.model.Film
 import com.example.jocasta.data.model.*
 import retrofit2.Response
 import retrofit2.http.GET

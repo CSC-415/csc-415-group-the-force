@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.jocasta.data.SwapiClient
 import com.example.jocasta.data.model.ResourceResponse
 import com.example.jocasta.data.model.ResourceSetResponse
+import com.example.jocasta.data.model.*
 import javax.inject.Inject
 
 class SwapiRepositoryImpl @Inject constructor(
@@ -154,4 +155,3 @@ class SwapiRepositoryImpl @Inject constructor(
         }
     }
 }
-
