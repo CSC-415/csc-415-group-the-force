@@ -22,9 +22,17 @@ class HomeViewModel @Inject constructor(
     private val _personSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val personSetState: StateFlow<ResourceSetFetchState> = _personSetState
 
+    private val _starshipSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    val starshipSetState : StateFlow<ResourceSetFetchState> = _starshipSetState
+
+    private val _vehicleSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    val vehicleSetState : StateFlow<ResourceSetFetchState> = _vehicleSetState
+
     init {
         fetchFilms()
         fetchPeople()
+        fetchStarships()
+        fetchVehicles()
     }
 
     private fun fetchFilms() {
@@ -100,7 +108,78 @@ class HomeViewModel @Inject constructor(
             _personSetState.value = ResourceSetFetchState.Success(resourceSet = personSet)
         }
     }
+
+    private fun fetchStarships(){
+        Log.i("HomeViewModel", "#fetchStarships")
+        viewModelScope.launch {
+            val starshipSet = DefaultStarshipSet
+
+            while (starshipSet.next > 0 && _starshipSetState.value !is ResourceSetFetchState.Failure) {
+                when (val response = swapiRepository.fetchStarships(starshipSet.next)) {
+                    is ResourceSetResponse.Success -> { response.resourceSet as StarshipSet
+                        starshipSet.count = response.resourceSet.count
+                        starshipSet.next = response.resourceSet.next
+                        starshipSet.previous = response.resourceSet.previous
+                        starshipSet.starships += response.resourceSet.starships
+                    }
+
+                    is ResourceSetResponse.Failure -> {
+                        Log.e("HomeViewModel", "#fetchStarships response .Failure")
+                        _starshipSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+
+                    else -> {
+                        Log.w("HomeViewModel", "#fetchStarships response neither .Success nor .Failure")
+                        _starshipSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+                }
+            }
+
+            Log.i("HomeViewModel", "#fetchStarships response .Success")
+            _personSetState.value = ResourceSetFetchState.Success(resourceSet = starshipSet)
+        }
+
+    }
+    private fun fetchVehicles(){
+        val vehicleSet = DefaultVehicleSet
+
+        viewModelScope.launch {
+            while (vehicleSet.next > 0 && _vehicleSetState.value !is ResourceSetFetchState.Failure) {
+                when (val response = swapiRepository.fetchStarships(vehicleSet.next)) {
+                    is ResourceSetResponse.Success -> { response.resourceSet as VehicleSet
+                        vehicleSet.count = response.resourceSet.count
+                        vehicleSet.next = response.resourceSet.next
+                        vehicleSet.previous = response.resourceSet.previous
+                        vehicleSet.vehicles += response.resourceSet.vehicles
+                    }
+
+                    is ResourceSetResponse.Failure -> {
+                        Log.e("HomeViewModel", "#fetchVehicles response .Failure")
+                        _vehicleSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+
+                    else -> {
+                        Log.w("HomeViewModel", "#fetchVehicles response neither .Success nor .Failure")
+                        _vehicleSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+                }
+            }
+
+            Log.i("HomeViewModel", "#fetchVehicles response .Success")
+            _personSetState.value = ResourceSetFetchState.Success(resourceSet = vehicleSet)
+        }
+    }
+
 }
+
 
 /**
  * A sealed class container consisting of all [ResourceSet] fetch states.

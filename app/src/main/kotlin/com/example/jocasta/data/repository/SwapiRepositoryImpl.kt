@@ -2,9 +2,7 @@ package com.example.jocasta.data.repository
 
 import android.util.Log
 import com.example.jocasta.data.SwapiClient
-import com.example.jocasta.data.model.FilmSet
-import com.example.jocasta.data.model.PersonSet
-import com.example.jocasta.data.model.ResourceSetResponse
+import com.example.jocasta.data.model.*
 import javax.inject.Inject
 
 class SwapiRepositoryImpl @Inject constructor(
@@ -57,6 +55,56 @@ class SwapiRepositoryImpl @Inject constructor(
                 )
             )
         } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchStarships(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchFilms")
+
+        val response = client.fetchStarship(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(
+                StarshipSet(
+                    count = body.count,
+                    next = body.next,
+                    previous = body.previous,
+                    starships = body.starships
+                )
+            )
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchVehicles(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchVehicle")
+
+        val response = client.fetchVehicle(page)
+
+        if(!response.isSuccessful){
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null){
+            ResourceSetResponse.Success(
+                VehicleSet(
+                    count = body.count,
+                    next = body.next,
+                    previous = body.previous,
+                    vehicles = body.vehicles
+                )
+            )
+        }else{
             ResourceSetResponse.Failure
         }
     }

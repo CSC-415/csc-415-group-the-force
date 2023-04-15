@@ -2,6 +2,8 @@ package com.example.jocasta.data
 
 import com.example.jocasta.data.model.FilmSet
 import com.example.jocasta.data.model.PersonSet
+import com.example.jocasta.data.model.StarshipSet
+import com.example.jocasta.data.model.VehicleSet
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -35,4 +37,14 @@ interface SwapiClient {
     suspend fun fetchPeople(
         @Query("page") page: Int
     ): Response<PersonSet>
+
+    @GET("starships/")
+    suspend fun fetchStarship(
+        @Query("page") page: Int
+    ): Response<StarshipSet>
+
+    @GET("vehicles/")
+    suspend fun fetchVehicle(
+        @Query("page") page: Int
+    ): Response<VehicleSet>
 }
