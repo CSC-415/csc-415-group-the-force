@@ -42,7 +42,6 @@ interface SwapiRepository {
         page: Int
     ): ResourceSetResponse
 
-<<<<<<< HEAD
     /**
      * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
      *
@@ -53,25 +52,21 @@ interface SwapiRepository {
     suspend fun fetchPerson(
         id: Int
     ): ResourceResponse
-=======
+
     suspend fun fetchPlanets(
         page: Int
     ): ResourceSetResponse
 
     suspend fun fetchPlanet(
         id: Int
-    ): ResourceSetResponse
+    ): ResourceResponse
 
     suspend fun fetchAllSpecies(
         page: Int
     ): ResourceSetResponse
-<<<<<<< HEAD
->>>>>>> 87b17af (Added the code for the planet and species data models to fit the new data model schema)
-||||||| parent of f4818db (fixed code issues)
-=======
 
     suspend fun fetchSpecies(
         id: Int
-    ): ResourceSetResponse
->>>>>>> f4818db (fixed code issues)
+    ): ResourceResponse
+
 }

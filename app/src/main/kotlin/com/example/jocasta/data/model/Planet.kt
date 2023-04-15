@@ -57,4 +57,4 @@ data class Planet(
     val surfaceWater: String,
     @field:SerializedName("terrain")
     val terrain: String
-)
+) : Resource

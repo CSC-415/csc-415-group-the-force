@@ -16,16 +16,20 @@ class HomeViewModel @Inject constructor(
     private val swapiRepository: SwapiRepository,
 ) : ViewModel() {
 
-    private val _filmSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    private val _filmSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val filmSetState: StateFlow<ResourceSetFetchState> = _filmSetState
 
-    private val _personSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    private val _personSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val personSetState: StateFlow<ResourceSetFetchState> = _personSetState
 
-    private val _planetSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    private val _planetSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val planetSetState: StateFlow<ResourceSetFetchState> = _planetSetState
 
-    private val _speciesSetState = MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    private val _speciesSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val speciesSetState: StateFlow<ResourceSetFetchState> = _speciesSetState
 
     init {
@@ -98,7 +102,10 @@ class HomeViewModel @Inject constructor(
                     }
 
                     else -> {
-                        Log.w("HomeViewModel", "#fetchPeople response neither .Success nor .Failure")
+                        Log.w(
+                            "HomeViewModel",
+                            "#fetchPeople response neither .Success nor .Failure"
+                        )
                         _personSetState.value = ResourceSetFetchState.Failure
 
                         return@launch
@@ -119,7 +126,8 @@ class HomeViewModel @Inject constructor(
 
             while (planetSet.next > 0 && _planetSetState.value !is ResourceSetFetchState.Failure) {
                 when (val response = swapiRepository.fetchPlanets(planetSet.next)) {
-                    is ResourceSetResponse.Success -> { response.resourceSet as PlanetSet
+                    is ResourceSetResponse.Success -> {
+                        response.resourceSet as PlanetSet
                         planetSet.count = response.resourceSet.count
                         planetSet.next = response.resourceSet.next
                         planetSet.previous = response.resourceSet.previous
@@ -134,7 +142,10 @@ class HomeViewModel @Inject constructor(
                     }
 
                     else -> {
-                        Log.w("HomeViewModel", "#fetchPlanets response neither .Success nor .Failure")
+                        Log.w(
+                            "HomeViewModel",
+                            "#fetchPlanets response neither .Success nor .Failure"
+                        )
                         _planetSetState.value = ResourceSetFetchState.Failure
 
                         return@launch
@@ -155,7 +166,8 @@ class HomeViewModel @Inject constructor(
 
             while (speciesSet.next > 0 && _speciesSetState.value !is ResourceSetFetchState.Failure) {
                 when (val response = swapiRepository.fetchPeople(speciesSet.next)) {
-                    is ResourceSetResponse.Success -> { response.resourceSet as SpeciesSet
+                    is ResourceSetResponse.Success -> {
+                        response.resourceSet as SpeciesSet
                         speciesSet.count = response.resourceSet.count
                         speciesSet.next = response.resourceSet.next
                         speciesSet.previous = response.resourceSet.previous
@@ -170,7 +182,10 @@ class HomeViewModel @Inject constructor(
                     }
 
                     else -> {
-                        Log.w("HomeViewModel", "#fetchSpecies response neither .Success nor .Failure")
+                        Log.w(
+                            "HomeViewModel",
+                            "#fetchSpecies response neither .Success nor .Failure"
+                        )
                         _speciesSetState.value = ResourceSetFetchState.Failure
 
                         return@launch

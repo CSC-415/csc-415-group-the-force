@@ -58,4 +58,4 @@ data class Species(
     val people: List<Int>,
     @field:SerializedName("skin_colors")
     val skinColors: String
-)
+) : Resource

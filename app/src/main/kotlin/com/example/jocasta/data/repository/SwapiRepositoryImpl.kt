@@ -2,7 +2,8 @@ package com.example.jocasta.data.repository
 
 import android.util.Log
 import com.example.jocasta.data.SwapiClient
-import com.example.jocasta.data.model.*
+import com.example.jocasta.data.model.ResourceResponse
+import com.example.jocasta.data.model.ResourceSetResponse
 import javax.inject.Inject
 
 class SwapiRepositoryImpl @Inject constructor(
@@ -70,7 +71,16 @@ class SwapiRepositoryImpl @Inject constructor(
 
         if (!response.isSuccessful) {
             return ResourceResponse.Failure
+        }
 
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
+        }
+    }
 
     override suspend fun fetchPlanets(page: Int): ResourceSetResponse {
         Log.i("SwapiRepositoryImpl", "#fetchPlanets")
@@ -90,21 +100,21 @@ class SwapiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchPlanet(id: Int): ResourceSetResponse {
+    override suspend fun fetchPlanet(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchPlanet($id)")
 
-        val response = client.fetchPlanets(id)
+        val response = client.fetchPlanet(id)
 
         if (!response.isSuccessful) {
-            return ResourceSetResponse.Failure
+            return ResourceResponse.Failure
         }
 
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(body)
+            ResourceResponse.Success(body)
         } else {
-            ResourceSetResponse.Failure
+            ResourceResponse.Failure
         }
     }
 
@@ -126,22 +136,22 @@ class SwapiRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchSpecies(id: Int): ResourceSetResponse {
+    override suspend fun fetchSpecies(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchSpecies($id)")
 
-        val response = client.fetchAllSpecies(id)
+        val response = client.fetchSpecies(id)
 
         if (!response.isSuccessful) {
-            return ResourceSetResponse.Failure
+            return ResourceResponse.Failure
         }
 
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(body)
+            ResourceResponse.Success(body)
         } else {
-            ResourceSetResponse.Failure
->>>>>>> 87b17af (Added the code for the planet and species data models to fit the new data model schema)
+            ResourceResponse.Failure
         }
     }
 }
+
