@@ -165,7 +165,7 @@ class HomeViewModel @Inject constructor(
             val speciesSet = DefaultSpeciesSet
 
             while (speciesSet.next > 0 && _speciesSetState.value !is ResourceSetFetchState.Failure) {
-                when (val response = swapiRepository.fetchPeople(speciesSet.next)) {
+                when (val response = swapiRepository.fetchAllSpecies(speciesSet.next)) {
                     is ResourceSetResponse.Success -> {
                         response.resourceSet as SpeciesSet
                         speciesSet.count = response.resourceSet.count

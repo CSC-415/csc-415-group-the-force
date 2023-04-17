@@ -1,6 +1,7 @@
 package com.example.jocasta.data.model
 
 import com.example.jocasta.utility.DeserializeInt
+import com.example.jocasta.utility.DeserializeIntList
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 
@@ -43,7 +44,7 @@ data class Species(
     @field:SerializedName("eye_colors")
     val eyeColors: String,
     @field:SerializedName("films")
-    @field:JsonAdapter(DeserializeInt::class)
+    @field:JsonAdapter(DeserializeIntList::class)
     val films: List<Int>,
     @field:SerializedName("hair_colors")
     val hairColors: String,
@@ -54,7 +55,7 @@ data class Species(
     @field:SerializedName("name")
     val name: String,
     @field:SerializedName("people")
-    @field:JsonAdapter(DeserializeInt::class)
+    @field:JsonAdapter(DeserializeIntList::class)
     val people: List<Int>,
     @field:SerializedName("skin_colors")
     val skinColors: String
