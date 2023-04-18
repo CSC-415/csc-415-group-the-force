@@ -248,7 +248,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun fetchVehicles() {
-        Log.i("HomeViewModel", "#fetchStarships")
+        Log.i("HomeViewModel", "#fetchVehicles")
 
         viewModelScope.launch {
             val vehicleSet = DefaultVehicleSet
@@ -282,7 +282,7 @@ class HomeViewModel @Inject constructor(
                 }
             }
 
-            Log.i("HomeViewModel", "#fetchStarships response .Success")
+            Log.i("HomeViewModel", "#fetchVehicles response .Success")
             _vehicleSetState.value = ResourceSetFetchState.Success(resourceSet = vehicleSet)
         }
     }
