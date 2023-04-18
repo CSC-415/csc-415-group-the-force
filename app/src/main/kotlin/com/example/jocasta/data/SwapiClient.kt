@@ -27,6 +27,14 @@ interface SwapiClient {
     ): Response<FilmSet>
 
     /**
+     * Fetch a [Film] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Film] whose identifier field matches argument [id].
+     */
+
+    /**
      * Fetch a [PersonSet] with respect to resource pagination as indicated by the query parameter.
      *
      * @param page the response page number indicating the paginated data subset that is required.
@@ -37,6 +45,14 @@ interface SwapiClient {
     suspend fun fetchPeople(
         @Query("page") page: Int
     ): Response<PersonSet>
+
+    /**
+     * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Person] whose identifier field matches argument [id].
+     */
 
     @GET("starships/")
     suspend fun fetchStarship(

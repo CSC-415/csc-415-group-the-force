@@ -6,6 +6,9 @@ import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 
 data class Starship(
+    @SerializedName("url")
+    @JsonAdapter(DeserializeInt::class)
+    val id: Int,
     @SerializedName("cargo_capacity")
     val cargoCapacity: String,
     @SerializedName("consumables")
@@ -41,16 +44,18 @@ data class Starship(
     val pilots: List<Any>,
     @SerializedName("starship_class")
     val starshipClass: String,
-    @field:SerializedName("id")
-    val id: Int,
+
 ): Resource
 
 data class StarshipSet(
+    @field:SerializedName("count")
     var count: Int,
 
+    @field:SerializedName("next")
     @field:JsonAdapter(DeserializeInt::class)
     var next: Int,
 
+    @field:SerializedName("previous")
     @field:JsonAdapter(DeserializeInt::class)
     var previous: Int,
 

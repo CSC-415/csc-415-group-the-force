@@ -53,17 +53,22 @@ data class Vehicle(
     val edited: String,
 
     @SerializedName("url")
-    val url: String
+    @JsonAdapter(DeserializeInt::class)
+    val id: Int,
 ) : Resource
 
 data class VehicleSet(
+    @field:SerializedName("count")
     var count: Int,
 
+    @field:SerializedName("next")
     @field:JsonAdapter(DeserializeInt::class)
     var next: Int,
 
+    @field:SerializedName("previous")
     @field:JsonAdapter(DeserializeInt::class)
     var previous: Int,
+
 
     @field:SerializedName("results")
     var vehicles: List<Vehicle>

@@ -2,6 +2,7 @@ package com.example.jocasta.data.repository
 
 import com.example.jocasta.data.model.FilmSet
 import com.example.jocasta.data.model.PersonSet
+import com.example.jocasta.data.model.ResourceResponse
 import com.example.jocasta.data.model.ResourceSetResponse
 
 /**
@@ -21,7 +22,13 @@ interface SwapiRepository {
     suspend fun fetchFilms(
         page: Int
     ): ResourceSetResponse
-
+    /**
+     * Fetch a [Film] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Film] whose identifier field matches argument [id].
+     */
     /**
      * Fetch a [PersonSet] with respect to resource pagination as indicated by the query parameter.
      *
@@ -40,4 +47,5 @@ interface SwapiRepository {
     suspend fun fetchVehicles(
         page: Int
     ):ResourceSetResponse
+
 }
