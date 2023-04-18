@@ -52,4 +52,21 @@ interface SwapiRepository {
     suspend fun fetchPerson(
         id: Int
     ): ResourceResponse
+
+    suspend fun fetchPlanets(
+        page: Int
+    ): ResourceSetResponse
+
+    suspend fun fetchPlanet(
+        id: Int
+    ): ResourceResponse
+
+    suspend fun fetchAllSpecies(
+        page: Int
+    ): ResourceSetResponse
+
+    suspend fun fetchSpecies(
+        id: Int
+    ): ResourceResponse
+
 }
