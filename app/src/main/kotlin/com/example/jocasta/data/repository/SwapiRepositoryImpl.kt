@@ -2,6 +2,8 @@ package com.example.jocasta.data.repository
 
 import android.util.Log
 import com.example.jocasta.data.SwapiClient
+import com.example.jocasta.data.model.ResourceResponse
+import com.example.jocasta.data.model.ResourceSetResponse
 import com.example.jocasta.data.model.*
 import javax.inject.Inject
 
@@ -67,6 +69,78 @@ class SwapiRepositoryImpl @Inject constructor(
         Log.i("SwapiRepositoryImpl", "#fetchPerson($id)")
 
         val response = client.fetchPerson(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
+        }
+    }
+
+    override suspend fun fetchPlanets(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchPlanets")
+
+        val response = client.fetchPlanets(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(body)
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchPlanet(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchPlanet($id)")
+
+        val response = client.fetchPlanet(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
+        }
+    }
+
+    override suspend fun fetchAllSpecies(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchAllSpecies")
+
+        val response = client.fetchAllSpecies(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(body)
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchSpecies(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchSpecies($id)")
+
+        val response = client.fetchSpecies(id)
 
         if (!response.isSuccessful) {
             return ResourceResponse.Failure
