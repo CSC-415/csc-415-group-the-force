@@ -41,7 +41,8 @@ data class Starship(
     @SerializedName("passengers")
     val passengers: String,
     @SerializedName("pilots")
-    val pilots: List<Any>,
+    @field:JsonAdapter(DeserializeIntList::class)
+    val pilots: List<Int>,
     @SerializedName("starship_class")
     val starshipClass: String,
 

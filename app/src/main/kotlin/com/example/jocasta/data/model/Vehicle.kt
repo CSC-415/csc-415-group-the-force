@@ -70,7 +70,6 @@ data class VehicleSet(
     @field:JsonAdapter(DeserializeInt::class)
     var previous: Int,
 
-
     @field:SerializedName("results")
     var vehicles: List<Vehicle>
 ):ResourceSet
