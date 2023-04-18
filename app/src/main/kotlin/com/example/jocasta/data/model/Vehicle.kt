@@ -5,6 +5,10 @@ import com.example.jocasta.utility.DeserializeIntList
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 data class Vehicle(
+    @SerializedName("url")
+    @JsonAdapter(DeserializeInt::class)
+    val id: Int,
+
     @SerializedName("vehicle_class")
     val vehicleClass: String,
 
@@ -52,9 +56,6 @@ data class Vehicle(
     @SerializedName("edited")
     val edited: String,
 
-    @SerializedName("url")
-    @JsonAdapter(DeserializeInt::class)
-    val id: Int,
 ) : Resource
 
 data class VehicleSet(

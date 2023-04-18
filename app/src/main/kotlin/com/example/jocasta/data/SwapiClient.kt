@@ -1,11 +1,15 @@
 package com.example.jocasta.data
 
+
 import com.example.jocasta.data.model.FilmSet
 import com.example.jocasta.data.model.PersonSet
 import com.example.jocasta.data.model.StarshipSet
 import com.example.jocasta.data.model.VehicleSet
+import com.example.jocasta.data.model.*
+
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -34,6 +38,11 @@ interface SwapiClient {
      * @return the [Film] whose identifier field matches argument [id].
      */
 
+    @GET("films/{id}/")
+    suspend fun fetchFilm(
+        @Path("id") id: Int
+    ): Response<Film>
+
     /**
      * Fetch a [PersonSet] with respect to resource pagination as indicated by the query parameter.
      *
@@ -46,6 +55,7 @@ interface SwapiClient {
         @Query("page") page: Int
     ): Response<PersonSet>
 
+
     /**
      * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
      *
@@ -53,14 +63,54 @@ interface SwapiClient {
      *
      * @return the [Person] whose identifier field matches argument [id].
      */
+    @GET("people/{id}/")
+    suspend fun fetchPerson(
+        @Path("id") id: Int
+    ): Response<Person>
+
+
+
+    @GET("planets/")
+    suspend fun fetchPlanets(
+        @Query("page") page: Int
+    ): Response<PlanetSet>
+
+    @GET("planets/{id}/")
+    suspend fun fetchPlanet(
+        @Path("id") id: Int
+    ): Response<Planet>
+
+    @GET("species/")
+    suspend fun fetchAllSpecies(
+        @Query("page") page: Int
+    ): Response<SpeciesSet>
+
+    @GET("species/{id}/")
+    suspend fun fetchSpecies(
+        @Path("id") id: Int
+    ): Response<Species>
 
     @GET("starships/")
-    suspend fun fetchStarship(
+    suspend fun fetchStarships(
         @Query("page") page: Int
     ): Response<StarshipSet>
 
+    @GET("starships/{id}")
+    suspend fun fetchStarship(
+        @Path("id") id:Int
+    ): Response<Starship>
+
     @GET("vehicles/")
-    suspend fun fetchVehicle(
+    suspend fun fetchVehicles(
         @Query("page") page: Int
     ): Response<VehicleSet>
+
+    @GET("starships/")
+    suspend fun fetchVehicle(
+        @Path("id") id:Int
+    ): Response<Vehicle>
+
 }
+
+
+
