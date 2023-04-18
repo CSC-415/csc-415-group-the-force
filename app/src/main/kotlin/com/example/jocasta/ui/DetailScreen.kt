@@ -1,5 +1,6 @@
 package com.example.jocasta.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,6 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,42 +22,51 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.jocasta.model.Planet
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.jocasta.data.model.Film
 import com.example.jocasta.data.model.Person
-import com.example.jocasta.model.Planet
+import com.example.jocasta.data.model.ResourceResponse
+import com.example.jocasta.data.repository.SwapiRepository
+class DetailScreen() {
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun ModelScreen(){
-    // TODO: Added link for specified item
-    Column(Modifier
-        .background(Color.Black)
-    ) {
-        Header(nonArrayData)
+    @Composable
+    public fun ModelScreen(type: String?, id: Int?){
+        // TODO: Added link for specified item
 
-        LazyColumn(Modifier
-            .fillMaxSize()
+        Column(Modifier
+            .background(Color.Black)
         ) {
-            TODO("Add ability to collect all data that is not in an array. Likey will need a function to compile into an array")
-            item {
-                TopInfo(nonArrayData)
-            }
-            TODO("Add ability to iterate through all items in swapi object that are arrays")
-            items(dataList) {arrayData ->
-                ItemRow(dataList = arrayData)
+//        Header(resourceState)
+
+            LazyColumn(Modifier
+                .fillMaxSize()
+            ) {
+
+//            item {
+//                TopInfo(resourceState)
+//            }
+//            items(resourceState) {arrayData ->
+//                ItemRow(dataList = arrayData)
+//            }
             }
         }
     }
 }
 
+/*
 @Composable
-fun <T>Header(dataList: List<T>) {
+fun <T>Header(data: T) {
     Row(Modifier
         .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "A New Hope",
+        Text(text = data.name,
             Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp, start = 52.dp, end = 52.dp)
@@ -78,7 +90,7 @@ fun <T>Header(dataList: List<T>) {
 }
 
 @Composable
-fun TopInfo(data: String) {
+fun <T>TopInfo(dataList: List<T>) {
     Row(Modifier
         .padding(start = 20.dp, end = 20.dp)) {
         Box(
@@ -88,30 +100,12 @@ fun TopInfo(data: String) {
                 .padding(top = 16.dp, end = 8.dp)
                 .background(Color.Blue)
         ) {
-            FilmPoster(data.url)
+            // May need to alter the structure of the files or, more likley, create some kind of check to find the url index in the array
+            FilmPoster(dataList.url)
         }
-        Column {
-            Text("Director: George Lucas",
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp)
-                    .background(Color.White, RoundedCornerShape(10))
-                    .padding(8.dp)
-            )
-            Text("Producers: Gary Kurtz, Rick McCallum",
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp)
-                    .background(Color.White, RoundedCornerShape(10))
-                    .padding(8.dp)
-            )
-            Text("Release: 1977-06-25",
-                Modifier
-                    .fillMaxWidth()
-                    .padding(top = 12.dp)
-                    .background(Color.White, RoundedCornerShape(10))
-                    .padding(8.dp)
-            )
+        LazyColumn {
+            items(dataList) { itemData ->
+            }
         }
     }
 }
@@ -157,6 +151,18 @@ fun FilmPoster(data: String) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
+fun <T>infoCard(data: T) {
+    Text("test",
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 12.dp)
+            .background(Color.White, RoundedCornerShape(10))
+            .padding(8.dp)
+    )
+}
+
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
 //fun CharacterCard(planet: Planet)
 fun <T>Card(data: T) {
     var url = (splitURL(data.url)).takeLast(3)
@@ -175,7 +181,7 @@ fun <T>Card(data: T) {
                         .padding(20.dp)
                         .background(Color.Gray, RoundedCornerShape(10))
                 )
-                is Film -> Text(text = data.title,
+                is Film -> Text(text = data.name,
                     Modifier
                         .padding(20.dp)
                         .background(Color.Gray, RoundedCornerShape(10))
@@ -225,3 +231,4 @@ fun splitURL(url: String): List<String> {
     }
     return response
 }
+*/
