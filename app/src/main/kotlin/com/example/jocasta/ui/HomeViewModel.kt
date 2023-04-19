@@ -32,11 +32,20 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
     val speciesSetState: StateFlow<ResourceSetFetchState> = _speciesSetState
 
+    private val _starshipSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    val starshipSetState: StateFlow<ResourceSetFetchState> = _starshipSetState
+
+    private val _vehicleSetState =
+        MutableStateFlow<ResourceSetFetchState>(ResourceSetFetchState.Fetching)
+    val vehicleSetState: StateFlow<ResourceSetFetchState> = _vehicleSetState
     init {
         fetchFilms()
         fetchPeople()
         fetchPlanets()
         fetchSpecies()
+        fetchStarships()
+        fetchVehicles()
     }
 
     private fun fetchFilms() {
@@ -198,6 +207,85 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun fetchStarships() {
+        Log.i("HomeViewModel", "#fetchStarships")
+
+        viewModelScope.launch {
+            val starshipSet = DefaultStarshipSet
+
+            while (starshipSet.next > 0 && _starshipSetState.value !is ResourceSetFetchState.Failure) {
+                when (val response = swapiRepository.fetchStarships(starshipSet.next)) {
+                    is ResourceSetResponse.Success -> {
+                        response.resourceSet as StarshipSet
+                        starshipSet.count = response.resourceSet.count
+                        starshipSet.next = response.resourceSet.next
+                        starshipSet.previous = response.resourceSet.previous
+                        starshipSet.starships += response.resourceSet.starships
+                    }
+
+                    is ResourceSetResponse.Failure -> {
+                        Log.e("HomeViewModel", "#fetchStarships response .Failure")
+                        _starshipSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+
+                    else -> {
+                        Log.w(
+                            "HomeViewModel",
+                            "#fetchStarships response neither .Success nor .Failure"
+                        )
+                        _starshipSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+                }
+            }
+
+            Log.i("HomeViewModel", "#fetchStarships response .Success")
+            _starshipSetState.value = ResourceSetFetchState.Success(resourceSet = starshipSet)
+        }
+    }
+
+    private fun fetchVehicles() {
+        Log.i("HomeViewModel", "#fetchVehicles")
+
+        viewModelScope.launch {
+            val vehicleSet = DefaultVehicleSet
+
+            while (vehicleSet.next > 0 && _vehicleSetState.value !is ResourceSetFetchState.Failure) {
+                when (val response = swapiRepository.fetchVehicles(vehicleSet.next)) {
+                    is ResourceSetResponse.Success -> {
+                        response.resourceSet as VehicleSet
+                        vehicleSet.count = response.resourceSet.count
+                        vehicleSet.next = response.resourceSet.next
+                        vehicleSet.previous = response.resourceSet.previous
+                        vehicleSet.vehicles += response.resourceSet.vehicles
+                    }
+
+                    is ResourceSetResponse.Failure -> {
+                        Log.e("HomeViewModel", "#fetchVehicles response .Failure")
+                        _vehicleSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+
+                    else -> {
+                        Log.w(
+                            "HomeViewModel",
+                            "#fetchVehicles response neither .Success nor .Failure"
+                        )
+                        _vehicleSetState.value = ResourceSetFetchState.Failure
+
+                        return@launch
+                    }
+                }
+            }
+
+            Log.i("HomeViewModel", "#fetchVehicles response .Success")
+            _vehicleSetState.value = ResourceSetFetchState.Success(resourceSet = vehicleSet)
+        }
+    }
 }
 
 /**
@@ -224,3 +312,4 @@ sealed class ResourceSetFetchState {
      */
     object Failure : ResourceSetFetchState()
 }
+

@@ -21,14 +21,10 @@ import com.google.gson.annotations.SerializedName
  * @property vehicles the list of vehicle identifiers that appear in this film
  */
 data class Film(
-    @field:SerializedName("url")
-    @field:JsonAdapter(DeserializeInt::class)
+    @field:SerializedName("episode_id")
     val id: Int,
 
     val title: String,
-
-    @field:SerializedName("episode_id")
-    val episode: Int,
 
     @field:SerializedName("opening_crawl")
     val openingCrawl: String,

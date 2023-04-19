@@ -38,7 +38,8 @@ class DetailViewModel @Inject constructor(
             "person" -> fetchPerson(id)
             "planet" -> fetchPlanet(id)
             "species" -> fetchSpecies(id)
-
+            "starship" -> fetchStarship(id)
+            "vehicle" -> fetchVehicle(id)
             else -> fetchFilm(id)
         }
     }
@@ -134,6 +135,52 @@ class DetailViewModel @Inject constructor(
             }
         }
     }
+
+    private fun fetchStarship(id: Int) {
+        Log.i("DetailViewModel", "#fetchStarship($id)")
+
+        viewModelScope.launch {
+            when (val response = swapiRepository.fetchStarship(id)) {
+                is ResourceResponse.Success -> {
+                    Log.i("DetailViewModel", "#fetchStarship response .Success")
+                    _resourceState.value = ResourceFetchState.Success(resource = response.resource)
+                }
+
+                is ResourceResponse.Failure -> {
+                    Log.e("DetailViewModel", "#fetchStarship response .Failure")
+                    _resourceState.value = ResourceFetchState.Failure
+                }
+
+                else -> {
+                    Log.e("DetailViewModel", "#fetchStarship response neither .Success nor .Failure")
+                    _resourceState.value = ResourceFetchState.Failure
+                }
+            }
+        }
+    }
+    private fun fetchVehicle(id: Int) {
+        Log.i("DetailViewModel", "#fetchVehicle($id)")
+
+        viewModelScope.launch {
+            when (val response = swapiRepository.fetchVehicle(id)) {
+                is ResourceResponse.Success -> {
+                    Log.i("DetailViewModel", "##fetchVehicle response .Success")
+                    _resourceState.value = ResourceFetchState.Success(resource = response.resource)
+                }
+
+                is ResourceResponse.Failure -> {
+                    Log.e("DetailViewModel", "##fetchVehicle response .Failure")
+                    _resourceState.value = ResourceFetchState.Failure
+                }
+
+                else -> {
+                    Log.e("DetailViewModel", "##fetchVehicle response neither .Success nor .Failure")
+                    _resourceState.value = ResourceFetchState.Failure
+                }
+            }
+        }
+    }
+
 }
 
 sealed class ResourceFetchState {
