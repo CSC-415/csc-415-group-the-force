@@ -76,9 +76,10 @@ fun FilmDetailScreen(
         }
         item {
             val detailArray = listOf<String>(
-                "Episode: ${film.episode}", "Director: ${film.director}", "Producer(s): ${film.producer}", "Release Data: ${film.releaseDate}"
+                "Episode: ${film.id}", "Director: ${film.director}", "Producer(s): ${film.producer}", "Release Data: ${film.releaseDate}"
             )
-            topInfo(url = "film/${film.id}", dataList = detailArray)
+            val filmId = if (film.id < 4) film.id+3 else film.id-3
+            topInfo(url = "film/${filmId}", dataList = detailArray)
         }
         item { itemRow("Characters", "person", film.people, navController) }
         item { itemRow(title = "Planets", type = "planet", idList = film.planets, navController = navController) }
