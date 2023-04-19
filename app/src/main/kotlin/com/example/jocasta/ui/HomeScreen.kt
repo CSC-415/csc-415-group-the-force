@@ -15,10 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.jocasta.data.model.FilmSet
-import com.example.jocasta.data.model.PersonSet
-import com.example.jocasta.data.model.PlanetSet
-import com.example.jocasta.data.model.Resource
+import com.example.jocasta.data.model.*
 
 @Composable
 fun HomeRoute(
@@ -47,6 +44,7 @@ fun HomeScreen(
 ) {
     val personSetResponse = viewModel.personSetState.collectAsState().value
     val planetSetResponse = viewModel.planetSetState.collectAsState().value
+    val speciesSetResponse = viewModel.speciesSetState.collectAsState().value
 
     LazyColumn {
         item {
@@ -106,6 +104,25 @@ fun HomeScreen(
 
             else -> { /* swallow - show nothing */ }
         }
+
+        when (speciesSetResponse) {
+            is ResourceSetFetchState.Success -> {
+                item {
+                    ContentHeader(
+                        text = "Species"
+                    )
+                }
+
+                item {
+                    ContentRow(
+                        navController = navController,
+                        resources = (speciesSetResponse.resourceSet as SpeciesSet).species
+                    )
+                }
+            }
+
+            else -> { /* swallow - show nothing */ }
+        }
     }
 }
 
@@ -116,7 +133,7 @@ fun ContentHeader(
     Text(
         text = text,
         fontWeight = FontWeight(FontWeight.Bold.weight),
-        fontSize = 32.sp
+        fontSize = 20.sp
     )
 }
 
