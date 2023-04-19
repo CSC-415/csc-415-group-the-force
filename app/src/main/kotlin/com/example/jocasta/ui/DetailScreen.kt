@@ -47,18 +47,18 @@ class DetailScreen() {
                 .fillMaxSize()
             ) {
 
-//            item {
-//                TopInfo(resourceState)
-//            }
-//            items(resourceState) {arrayData ->
-//                ItemRow(dataList = arrayData)
-//            }
+            item {
+                TopInfo(resourceState)
+            }
+            items(resourceState) {arrayData ->
+                ItemRow(dataList = arrayData)
+            }
             }
         }
     }
 }
 
-/*
+
 @Composable
 fun <T>Header(data: T) {
     Row(Modifier
@@ -231,4 +231,3 @@ fun splitURL(url: String): List<String> {
     }
     return response
 }
-*/

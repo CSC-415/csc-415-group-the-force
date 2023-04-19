@@ -59,9 +59,7 @@ fun detailScreen(fetchState: ResourceFetchState) {
             Text(text = "Type: $type, ID: $id")
         }
         else -> {
-            Text(text = "failure")
+            Text(text = "failure: $fetchState")
         }
     }
 }
-
-fun getDetailResponseState(detailViewModel: DetailViewModel): ResourceFetchState { return detailViewModel.resourceState.value }
