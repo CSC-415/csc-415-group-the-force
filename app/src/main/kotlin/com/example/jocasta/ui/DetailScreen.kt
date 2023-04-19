@@ -22,10 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.jocasta.data.model.Film
-import com.example.jocasta.data.model.Person
-import com.example.jocasta.data.model.Resource
-import com.example.jocasta.data.model.Species
+import com.example.jocasta.data.model.*
 
 @Composable
 fun DetailRoute(
@@ -59,6 +56,7 @@ fun DetailScreen(
         is Film -> FilmDetailScreen(navController = navController, film = resource)
         is Person -> PersonDetailScreen(navController = navController, person = resource)
         is Species -> SpeciesDetailScreen(navController = navController, species = resource)
+        is Planet -> PlanetDetailScreen(navController = navController, planet = resource)
     }
 }
 
@@ -77,7 +75,7 @@ fun FilmDetailScreen(
             header(title = film.title)
         }
         item {
-            var detailArray = listOf<String>(
+            val detailArray = listOf<String>(
                 "Episode: ${film.episode}", "Director: ${film.director}", "Producer(s): ${film.producer}", "Release Data: ${film.releaseDate}"
             )
             topInfo(url = "film/${film.id}", dataList = detailArray)
@@ -103,13 +101,39 @@ fun PersonDetailScreen(
             header(title = person.name)
         }
         item {
-            var detailArray = listOf<String>(
+            val detailArray = listOf<String>(
                 "Gender: ${person.gender}", "Height: ${person.height}", "Hair Color: ${person.hairColor}",
                 "Eye Color: ${person.eyeColor}", "Skin Color: ${person.skinColor}", "Birth Year: ${person.birthYear}"
             )
             topInfo(url = "person/${person.id}", dataList = detailArray)
         }
         item { itemRow(title = "Films", type = "film", idList = person.films, navController = navController) }
+    }
+}
+
+@Composable
+fun PlanetDetailScreen(
+    navController: NavHostController,
+    planet: Planet
+) {
+    LazyColumn (
+        Modifier
+            .background(Color.Black)
+            .fillMaxSize()
+    ) {
+        item {
+            // Page Header
+            header(title = planet.name)
+        }
+        item {
+            val detailArray = listOf<String>(
+                "Climate: ${planet.climate}", "Terrain: ${planet.terrain}", "Population: ${planet.population}",
+                "Hours in a Day: ${planet.rotationPeriod}", "Days in a Year: ${planet.orbitalPeriod}", "Gravity Level: ${planet.gravity}"
+            )
+            topInfo(url = "planet/${planet.id}", dataList = detailArray)
+        }
+        item { itemRow(title = "Films", type = "film", idList = planet.films, navController = navController) }
+        item { if (planet.people.isNotEmpty()) { itemRow(title = "Residents", type = "person", idList = planet.people, navController = navController) } }
     }
 }
 
@@ -128,7 +152,7 @@ fun SpeciesDetailScreen(
             header(title = species.name)
         }
         item {
-            var detailArray = listOf<String>(
+            val detailArray = listOf<String>(
                 "Classification: ${species.classification}", "Designation: ${species.designation}", "Average Height: ${species.averageHeight}",
                 "Skin Colors: ${species.skinColors}", "Hair Colors: ${species.hairColors}", "Eye Colors: ${species.eyeColors}",
                 "Language: ${species.language}"
