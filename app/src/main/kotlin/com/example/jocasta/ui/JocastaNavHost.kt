@@ -1,9 +1,7 @@
 package com.example.jocasta.ui
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -15,7 +13,7 @@ import androidx.navigation.navArgument
 fun JocastaNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "{type}/{id}"
+    startDestination: String = "home"
 ) {
     NavHost(
         modifier = modifier,
@@ -26,7 +24,7 @@ fun JocastaNavHost(
         composable(
             route = "home"
         ) {
-            homeScreen()
+            HomeRoute(navController = navController)
         }
 
         composable(
@@ -36,30 +34,7 @@ fun JocastaNavHost(
                 navArgument("id") { type = NavType.IntType }
             )
         ) {
-            val detailViewModel: DetailViewModel = hiltViewModel()
-            detailScreen(fetchState = getDetailResponseState(detailViewModel))
-        }
-    }
-}
-
-@Composable
-fun homeScreen() {
-    Text(text = "home")
-}
-
-
-@Composable
-fun detailScreen(fetchState: ResourceFetchState) {
-    val navController = rememberNavController()
-    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
-    when (fetchState) {
-        is ResourceFetchState.Success -> {
-            val type = savedStateHandle?.get<String>("type")
-            val id = savedStateHandle?.get<Int>("id")
-            Text(text = "Type: $type, ID: $id")
-        }
-        else -> {
-            Text(text = "failure: $fetchState")
+            DetailRoute(navController = navController)
         }
     }
 }

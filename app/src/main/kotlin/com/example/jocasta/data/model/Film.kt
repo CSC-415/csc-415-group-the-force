@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName
  *
  * @property id the unique datastore film identifier
  * @property title the film title, which is more accurately the subtitle (e.g., A New Hope)
- * @property episode the film number in episodic order
  * @property openingCrawl the opening paragraph displayed at film start
  * @property director the name(s) of the film director(s)
  * @property producer the name(s) of the film producer(s)
