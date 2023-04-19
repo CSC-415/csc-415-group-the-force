@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName
  *
  * @property id the unique datastore film identifier
  * @property title the film title, which is more accurately the subtitle (e.g., A New Hope)
- * @property episode the film number in episodic order
  * @property openingCrawl the opening paragraph displayed at film start
  * @property director the name(s) of the film director(s)
  * @property producer the name(s) of the film producer(s)
@@ -22,14 +21,10 @@ import com.google.gson.annotations.SerializedName
  * @property vehicles the list of vehicle identifiers that appear in this film
  */
 data class Film(
-    @field:SerializedName("url")
-    @field:JsonAdapter(DeserializeInt::class)
+    @field:SerializedName("episode_id")
     val id: Int,
 
     val title: String,
-
-    @field:SerializedName("episode_id")
-    val episode: Int,
 
     @field:SerializedName("opening_crawl")
     val openingCrawl: String,
