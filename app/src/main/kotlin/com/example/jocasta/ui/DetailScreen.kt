@@ -57,6 +57,8 @@ fun DetailScreen(
         is Person -> PersonDetailScreen(navController = navController, person = resource)
         is Species -> SpeciesDetailScreen(navController = navController, species = resource)
         is Planet -> PlanetDetailScreen(navController = navController, planet = resource)
+        is Starship -> StarshipDetailScreen(navController = navController, starship = resource)
+        is Vehicle -> VehicleDetailScreen(navController = navController, vehicle = resource)
     }
 }
 
@@ -162,6 +164,60 @@ fun SpeciesDetailScreen(
         }
         item { itemRow(title = "Films", type = "film", idList = species.films, navController = navController) }
         item { itemRow(title = "People", type = "person", idList = species.people, navController = navController) }
+    }
+}
+
+@Composable
+fun StarshipDetailScreen(
+    navController: NavHostController,
+    starship: Starship
+) {
+    LazyColumn (
+        Modifier
+            .background(Color.Black)
+            .fillMaxSize()
+    ) {
+        item {
+            // Page Header
+            header(title = starship.name)
+        }
+        item {
+            val detailArray = listOf<String>(
+                "Model: ${starship.model}", "Manufacturer: ${starship.manufacturer}", "Cost in Credits: ${starship.costInCredits}",
+                "Starship Class: ${starship.starshipClass}", "Crew Capacity: ${starship.crew}", "Passenger Capacity: ${starship.passengers}",
+                "Hyperdrive Rating: ${starship.hyperdriveRating}"
+            )
+            topInfo(url = "species/${starship.id}", dataList = detailArray)
+        }
+        item { itemRow(title = "Films", type = "film", idList = starship.films, navController = navController) }
+        item { itemRow(title = "Pilots", type = "person", idList = starship.pilots, navController = navController) }
+    }
+}
+
+@Composable
+fun VehicleDetailScreen(
+    navController: NavHostController,
+    vehicle: Vehicle
+) {
+    LazyColumn (
+        Modifier
+            .background(Color.Black)
+            .fillMaxSize()
+    ) {
+        item {
+            // Page Header
+            header(title = vehicle.name)
+        }
+        item {
+            val detailArray = listOf<String>(
+                "Model: ${vehicle.model}", "Manufacturer: ${vehicle.manufacturer}", "Cost in Credits: ${vehicle.costInCredits}",
+                "Vehicle Class: ${vehicle.vehicleClass}", "Crew Capacity: ${vehicle.crew}", "Passenger Capacity: ${vehicle.passengers}",
+                "Speed: ${vehicle.maxAtmospheringSpeed}"
+            )
+            topInfo(url = "species/${vehicle.id}", dataList = detailArray)
+        }
+        item { itemRow(title = "Films", type = "film", idList = vehicle.films, navController = navController) }
+        item { if (vehicle.pilots.isNotEmpty()) itemRow(title = "Pilots", type = "person", idList = vehicle.pilots, navController = navController) }
     }
 }
 
