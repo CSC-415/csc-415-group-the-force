@@ -96,14 +96,7 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                StarshipSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    starships = body.starships
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
         }
@@ -112,7 +105,7 @@ class SwapiRepositoryImpl @Inject constructor(
     override suspend fun fetchStarship(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchStarship($id)")
 
-        val response = client.fetchPerson(id)
+        val response = client.fetchStarship(id)
 
         if (!response.isSuccessful) {
             return ResourceResponse.Failure
@@ -140,14 +133,7 @@ class SwapiRepositoryImpl @Inject constructor(
         val body = response.body()
 
         return if (body !== null) {
-            ResourceSetResponse.Success(
-                VehicleSet(
-                    count = body.count,
-                    next = body.next,
-                    previous = body.previous,
-                    vehicles = body.vehicles
-                )
-            )
+            ResourceSetResponse.Success(body)
         } else {
             ResourceSetResponse.Failure
         }
@@ -156,7 +142,7 @@ class SwapiRepositoryImpl @Inject constructor(
     override suspend fun fetchVehicle(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchVehicle($id)")
 
-        val response = client.fetchPerson(id)
+        val response = client.fetchVehicle(id)
 
         if (!response.isSuccessful) {
             return ResourceResponse.Failure
