@@ -104,7 +104,7 @@ fun PersonDetailScreen(
         }
         item {
             val detailArray = listOf<String>(
-                "Gender: ${person.gender}", "Height: ${person.height}", "Hair Color: ${person.hairColor}",
+                "Gender: ${person.gender}", "Height: ${person.height}cm", "Hair Color: ${person.hairColor}",
                 "Eye Color: ${person.eyeColor}", "Skin Color: ${person.skinColor}", "Birth Year: ${person.birthYear}"
             )
             TopInfo(url = "person/${person.id}", dataList = detailArray)
@@ -129,7 +129,7 @@ fun PlanetDetailScreen(
         }
         item {
             val detailArray = listOf<String>(
-                "Climate: ${planet.climate}", "Terrain: ${planet.terrain}", "Population: ${planet.population}",
+                "Climate: ${planet.climate}", "Terrain: ${planet.terrain}", "Population: ${planet.population} people",
                 "Hours in a Day: ${planet.rotationPeriod}", "Days in a Year: ${planet.orbitalPeriod}", "Gravity Level: ${planet.gravity}"
             )
             TopInfo(url = "planet/${planet.id}", dataList = detailArray)
@@ -211,7 +211,7 @@ fun VehicleDetailScreen(
             val detailArray = listOf<String>(
                 "Model: ${vehicle.model}", "Manufacturer: ${vehicle.manufacturer}", "Cost in Credits: ${vehicle.costInCredits}",
                 "Vehicle Class: ${vehicle.vehicleClass}", "Crew Capacity: ${vehicle.crew}", "Passenger Capacity: ${vehicle.passengers}",
-                "Speed: ${vehicle.maxAtmospheringSpeed}"
+                "Speed: ${vehicle.maxAtmospheringSpeed}km/h"
             )
             TopInfo(url = "species/${vehicle.id}", dataList = detailArray)
         }
