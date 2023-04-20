@@ -45,6 +45,8 @@ fun HomeScreen(
     val personSetResponse = viewModel.personSetState.collectAsState().value
     val planetSetResponse = viewModel.planetSetState.collectAsState().value
     val speciesSetResponse = viewModel.speciesSetState.collectAsState().value
+    val starShipResponse = viewModel.starshipSetState.collectAsState().value
+
 
     LazyColumn {
         item {
@@ -117,6 +119,24 @@ fun HomeScreen(
                     ContentRow(
                         navController = navController,
                         resources = (speciesSetResponse.resourceSet as SpeciesSet).species
+                    )
+                }
+            }
+
+            else -> { /* swallow - show nothing */ }
+        }
+        when (starShipResponse) {
+            is ResourceSetFetchState.Success -> {
+                item {
+                    ContentHeader(
+                        text = "Starship"
+                    )
+                }
+
+                item {
+                    ContentRow(
+                        navController = navController,
+                        resources = (starShipResponse.resourceSet as StarshipSet).starships
                     )
                 }
             }

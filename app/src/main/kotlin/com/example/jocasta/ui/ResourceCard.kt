@@ -10,9 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.jocasta.data.model.Film
-import com.example.jocasta.data.model.Person
-import com.example.jocasta.data.model.Resource
+import com.example.jocasta.data.model.*
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -24,6 +22,9 @@ fun ResourceCard(
     val path = when (resource) {
         is Film -> "film/${resource.id}"
         is Person -> "person/${resource.id}"
+        is Planet -> "planet/${resource.id}"
+        is Species -> "species/${resource.id}"
+        is Starship -> "starhip/${resource.id}"
 
         else -> "film/1"
     }

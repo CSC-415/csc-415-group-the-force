@@ -1,6 +1,12 @@
 package com.example.jocasta.data
 
+
+import com.example.jocasta.data.model.FilmSet
+import com.example.jocasta.data.model.PersonSet
+import com.example.jocasta.data.model.StarshipSet
+import com.example.jocasta.data.model.VehicleSet
 import com.example.jocasta.data.model.*
+
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -31,6 +37,7 @@ interface SwapiClient {
      *
      * @return the [Film] whose identifier field matches argument [id].
      */
+
     @GET("films/{id}/")
     suspend fun fetchFilm(
         @Path("id") id: Int
@@ -48,6 +55,7 @@ interface SwapiClient {
         @Query("page") page: Int
     ): Response<PersonSet>
 
+
     /**
      * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
      *
@@ -59,6 +67,8 @@ interface SwapiClient {
     suspend fun fetchPerson(
         @Path("id") id: Int
     ): Response<Person>
+
+
 
     @GET("planets/")
     suspend fun fetchPlanets(
@@ -79,4 +89,28 @@ interface SwapiClient {
     suspend fun fetchSpecies(
         @Path("id") id: Int
     ): Response<Species>
+
+    @GET("starships/")
+    suspend fun fetchStarships(
+        @Query("page") page: Int
+    ): Response<StarshipSet>
+
+    @GET("starships/{id}")
+    suspend fun fetchStarship(
+        @Path("id") id:Int
+    ): Response<Starship>
+
+    @GET("vehicles/")
+    suspend fun fetchVehicles(
+        @Query("page") page: Int
+    ): Response<VehicleSet>
+
+    @GET("starships/")
+    suspend fun fetchVehicle(
+        @Path("id") id:Int
+    ): Response<Vehicle>
+
 }
+
+
+

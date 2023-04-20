@@ -60,11 +60,11 @@ class SwapiRepositoryImpl @Inject constructor(
 
         return if (body !== null) {
             ResourceSetResponse.Success(body)
+
         } else {
             ResourceSetResponse.Failure
         }
     }
-
     override suspend fun fetchPerson(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchPerson($id)")
 
@@ -83,6 +83,82 @@ class SwapiRepositoryImpl @Inject constructor(
         }
     }
 
+
+    override suspend fun fetchStarships(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchStarships")
+
+        val response = client.fetchStarships(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(body)
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchStarship(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchStarship($id)")
+
+        val response = client.fetchStarship(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
+        }
+    }
+
+
+    override suspend fun fetchVehicles(page: Int): ResourceSetResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchVehicles")
+
+        val response = client.fetchVehicles(page)
+
+        if (!response.isSuccessful) {
+            return ResourceSetResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceSetResponse.Success(body)
+        } else {
+            ResourceSetResponse.Failure
+        }
+    }
+
+    override suspend fun fetchVehicle(id: Int): ResourceResponse {
+        Log.i("SwapiRepositoryImpl", "#fetchVehicle($id)")
+
+        val response = client.fetchVehicle(id)
+
+        if (!response.isSuccessful) {
+            return ResourceResponse.Failure
+        }
+
+        val body = response.body()
+
+        return if (body !== null) {
+            ResourceResponse.Success(body)
+        } else {
+            ResourceResponse.Failure
+        }
+    }
+
+
+
     override suspend fun fetchPlanets(page: Int): ResourceSetResponse {
         Log.i("SwapiRepositoryImpl", "#fetchPlanets")
 
@@ -100,6 +176,7 @@ class SwapiRepositoryImpl @Inject constructor(
             ResourceSetResponse.Failure
         }
     }
+
 
     override suspend fun fetchPlanet(id: Int): ResourceResponse {
         Log.i("SwapiRepositoryImpl", "#fetchPlanet($id)")
@@ -154,4 +231,5 @@ class SwapiRepositoryImpl @Inject constructor(
             ResourceResponse.Failure
         }
     }
+
 }

@@ -1,6 +1,13 @@
 package com.example.jocasta.data.repository
 
+
+import com.example.jocasta.data.model.FilmSet
+import com.example.jocasta.data.model.PersonSet
+import com.example.jocasta.data.model.ResourceResponse
+import com.example.jocasta.data.model.ResourceSetResponse
+
 import com.example.jocasta.data.model.*
+
 
 /**
  * A resource repository interface meant to structure the application-side middleware service layer
@@ -19,7 +26,13 @@ interface SwapiRepository {
     suspend fun fetchFilms(
         page: Int
     ): ResourceSetResponse
-
+    /**
+     * Fetch a [Film] with the numeric datastore identifier indicated by the path parameter.
+     *
+     * @param id the numeric datastore identifier.
+     *
+     * @return the [Film] whose identifier field matches argument [id].
+     */
     /**
      * Fetch a [Film] with the numeric datastore identifier indicated by the path parameter.
      *
@@ -42,13 +55,7 @@ interface SwapiRepository {
         page: Int
     ): ResourceSetResponse
 
-    /**
-     * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
-     *
-     * @param id the numeric datastore identifier.
-     *
-     * @return the [Person] whose identifier field matches argument [id].
-     */
+
     suspend fun fetchPerson(
         id: Int
     ): ResourceResponse
@@ -68,5 +75,26 @@ interface SwapiRepository {
     suspend fun fetchSpecies(
         id: Int
     ): ResourceResponse
+    suspend fun fetchStarships(
+        page: Int
+    ):ResourceSetResponse
+    suspend fun fetchStarship(
+        id: Int
+    ):ResourceResponse
 
+    suspend fun fetchVehicles(
+        page: Int
+    ):ResourceSetResponse
+
+    suspend fun fetchVehicle(
+        id: Int
+    ):ResourceResponse
 }
+
+/**
+ * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
+ *
+ * @param id the numeric datastore identifier.
+ *
+ * @return the [Person] whose identifier field matches argument [id].
+ */
