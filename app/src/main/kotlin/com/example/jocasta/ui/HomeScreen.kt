@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,13 +46,38 @@ fun HomeScreen(
     filmSet: FilmSet,
     //planetSet: PlanetSet
 ) {
-    Column(){
-        Text(text = "     ‿︵‿  Jacosta  ‿︵‿",
-        fontSize = 32.sp,
-        fontWeight = FontWeight.Bold,
-        fontFamily = FontFamily.Serif,
+    val gradient = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF000000),
+            Color(0xFF000000),
+            Color(0xFF4B0082),
+            Color(0xFF000000),
+            Color(0xFFDDA0DD),
+            Color(0xFF000000),
+            Color(0xFF4B0082),
+            Color(0xFF000000),
+            Color(0xFF000000)
+        ),
+        start = Offset(0f, 0f),
+        end = Offset(0f, Float.POSITIVE_INFINITY)
+    )
+
+    Column(
         modifier = Modifier
-        )
+            .background(color = Color(0xFF1D1D1D))
+    ){
+        Box(modifier = Modifier
+            .padding(end = 58.dp)
+            .padding(bottom = 10.dp))
+        {
+            Text(text = "     ‿︵‿  Jacosta  ‿︵‿",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Serif,
+                modifier = Modifier,
+                color = Color(0xFFF5C542)
+            )
+        }
     }
 
 
@@ -64,6 +91,7 @@ fun HomeScreen(
     LazyColumn(
         modifier = Modifier
             .padding(top = 50.dp)
+            .background(brush = gradient)
     ) {
         item {
             ContentHeader(
@@ -187,13 +215,14 @@ fun ContentHeader(
     Box(
         modifier = Modifier
             .padding(top = 5.dp, bottom = 5.dp)
-            .background(color = Color.Gray)
+            .background(color = Color(0xFF3E3E3E))
     ){
         Text(modifier = Modifier
             .padding(end = 100.dp),
             text = text,
             fontWeight = FontWeight(FontWeight.Bold.weight),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color(0xFFF5C542)
         )
     }
 }
@@ -203,7 +232,7 @@ fun ContentRow(
     navController: NavHostController,
     resources: List<Resource>,
     modifier: Modifier = Modifier
-        .background(Color.LightGray)
+        .background(Color(0xFF2A2A2A))
         .padding(top = 5.dp, bottom = 5.dp)
 ) {
     LazyRow(modifier = modifier) {
