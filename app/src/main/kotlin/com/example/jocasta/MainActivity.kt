@@ -6,6 +6,10 @@ import androidx.activity.compose.setContent
 import com.example.jocasta.ui.JocastaNavHost
 import com.example.jocasta.ui.theme.JocastaTheme
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
+
+
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
