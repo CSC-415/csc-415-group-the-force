@@ -477,13 +477,14 @@ fun TopInfo(url:String, dataList: List<String>) {
 @Composable
 fun ItemRow(title: String, type: String, idList: List<Int>, navController: NavHostController) {
     Column(modifier = Modifier
-        .height(200.dp)
+        .height(220.dp)
+        .padding(bottom = 40.dp)
     ) {
         // item header
         Text(
             text = title,
             style = TextStyle(
-                fontSize = 20.sp,
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             ),
