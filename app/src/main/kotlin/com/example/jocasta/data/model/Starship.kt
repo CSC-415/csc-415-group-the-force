@@ -46,7 +46,7 @@ data class Starship(
     @SerializedName("starship_class")
     val starshipClass: String,
 
-): Resource
+    ): Resource
 
 data class StarshipSet(
     @field:SerializedName("count")

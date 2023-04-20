@@ -24,7 +24,7 @@ fun JocastaNavHost(
         composable(
             route = "home"
         ) {
-            TODO("HomeScreen to be created")
+            HomeRoute(navController = navController)
         }
 
         composable(
@@ -34,7 +34,7 @@ fun JocastaNavHost(
                 navArgument("id") { type = NavType.IntType }
             )
         ) {
-            TODO("DetailScreen to be created")
+            TODO()
         }
     }
 }
