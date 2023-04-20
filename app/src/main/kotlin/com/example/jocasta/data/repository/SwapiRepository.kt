@@ -91,14 +91,10 @@ interface SwapiRepository {
     ):ResourceResponse
 }
 
-    /**
-     * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
-     *
-     * @param id the numeric datastore identifier.
-     *
-     * @return the [Person] whose identifier field matches argument [id].
-     */
-
-
-
-
+/**
+ * Fetch a [Person] with the numeric datastore identifier indicated by the path parameter.
+ *
+ * @param id the numeric datastore identifier.
+ *
+ * @return the [Person] whose identifier field matches argument [id].
+ */

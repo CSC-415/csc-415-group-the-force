@@ -312,4 +312,3 @@ sealed class ResourceSetFetchState {
      */
     object Failure : ResourceSetFetchState()
 }
-

@@ -10,10 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.jocasta.data.model.Film
-import com.example.jocasta.data.model.Person
-import com.example.jocasta.data.model.Resource
-
+import com.example.jocasta.data.model.*
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -25,6 +22,10 @@ fun ResourceCard(
     val path = when (resource) {
         is Film -> "film/${resource.id}"
         is Person -> "person/${resource.id}"
+        is Planet -> "planet/${resource.id}"
+        is Species -> "species/${resource.id}"
+        is Starship -> "starship/${resource.id}"
+        is Vehicle -> "vehicle/${resource.id}"
 
         else -> "film/1"
     }
@@ -38,10 +39,13 @@ fun ResourceCard(
         shape = RoundedCornerShape(16.dp)
     ) {
         GlideImage(
-            // TODO change this back to main
-            model = "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/feature/groupwork/data/$path.jpg",
+            model = "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/main/data/$path.jpg",
             contentDescription = "..."
-        )
+        ) {
+            it.error(
+                "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/main/data/default.png"
+            )
+        }
     }
 }
 
@@ -61,9 +65,12 @@ fun ResourceCard(
         shape = RoundedCornerShape(16.dp)
     ) {
         GlideImage(
-            // TODO change this back to main
-            model = "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/feature/groupwork/data/$type/$id.jpg",
+            model = "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/main/data/$type/$id.jpg",
             contentDescription = "..."
-        )
+        ) {
+            it.error(
+                "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/main/data/default.png"
+            )
+        }
     }
 }

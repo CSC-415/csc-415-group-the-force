@@ -34,7 +34,7 @@ fun JocastaNavHost(
                 navArgument("id") { type = NavType.IntType }
             )
         ) {
-            DetailRoute(navController = navController)
+            TODO()
         }
     }
 }

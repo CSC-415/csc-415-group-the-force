@@ -56,7 +56,7 @@ data class Vehicle(
     @SerializedName("edited")
     val edited: String,
 
-) : Resource
+    ) : Resource
 
 data class VehicleSet(
     @field:SerializedName("count")
