@@ -1,6 +1,7 @@
 package com.example.jocasta.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -66,25 +67,61 @@ fun FilmDetailScreen(
     navController: NavHostController,
     film: Film
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = film.title)
+        // Page Header
+        Header(title = film.title, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Episode: ${film.id}",
+                    "Director: ${film.director}",
+                    "Producer(s): ${film.producer}",
+                    "Release Data: ${film.releaseDate}"
+                )
+                val filmId = if (film.id < 4) film.id + 3 else film.id - 3
+                TopInfo(url = "film/${filmId}", dataList = detailArray)
+            }
+            item { ItemRow("Characters", "person", film.people, navController) }
+            item {
+                ItemRow(
+                    title = "Planets",
+                    type = "planet",
+                    idList = film.planets,
+                    navController = navController
+                )
+            }
+            item {
+                ItemRow(
+                    title = "Starships",
+                    type = "starship",
+                    idList = film.starships,
+                    navController = navController
+                )
+            }
+            item { 
+                ItemRow(
+                    title = "Vehicles",
+                    type = "vehicle",
+                    idList = film.vehicles,
+                    navController = navController
+                )
+            }
+            item {
+                ItemRow(
+                    title = "Species",
+                    type = "species",
+                    idList = film.species,
+                    navController = navController
+                )
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Episode: ${film.id}", "Director: ${film.director}", "Producer(s): ${film.producer}", "Release Data: ${film.releaseDate}"
-            )
-            val filmId = if (film.id < 4) film.id+3 else film.id-3
-            TopInfo(url = "film/${filmId}", dataList = detailArray)
-        }
-        item { ItemRow("Characters", "person", film.people, navController) }
-        item { ItemRow(title = "Planets", type = "planet", idList = film.planets, navController = navController) }
-        item { ItemRow(title = "Species", type = "species", idList = film.species, navController = navController) }
     }
 }
 
@@ -93,23 +130,67 @@ fun PersonDetailScreen(
     navController: NavHostController,
     person: Person
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = person.name)
+        // Page Header
+        Header(title = person.name, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Gender: ${person.gender}",
+                    "Height: ${person.height}cm",
+                    "Hair Color: ${person.hairColor}",
+                    "Eye Color: ${person.eyeColor}",
+                    "Skin Color: ${person.skinColor}",
+                    "Birth Year: ${person.birthYear}"
+                )
+                TopInfo(url = "person/${person.id}", dataList = detailArray)
+            }
+            item {
+                ItemRow(
+                    title = "Films",
+                    type = "film",
+                    idList = person.films,
+                    navController = navController
+                )
+            }
+            item {
+                if (person.species.isNotEmpty()) {
+                    ItemRow(
+                        title = "Species",
+                        type = "species",
+                        idList = person.species,
+                        navController = navController
+                    )
+                }
+            }
+            item {
+                if (person.starships.isNotEmpty()) {
+                    ItemRow(
+                        title = "Starships",
+                        type = "starship",
+                        idList = person.starships,
+                        navController = navController
+                    )
+                }
+            }
+            item { 
+                if (person.vehicles.isNotEmpty()) {
+                    ItemRow(
+                        title = "Vehicles",
+                        type = "vehicle",
+                        idList = person.vehicles,
+                        navController = navController
+                    )
+                }
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Gender: ${person.gender}", "Height: ${person.height}cm", "Hair Color: ${person.hairColor}",
-                "Eye Color: ${person.eyeColor}", "Skin Color: ${person.skinColor}", "Birth Year: ${person.birthYear}"
-            )
-            TopInfo(url = "person/${person.id}", dataList = detailArray)
-        }
-        item { ItemRow(title = "Films", type = "film", idList = person.films, navController = navController) }
     }
 }
 
@@ -118,24 +199,47 @@ fun PlanetDetailScreen(
     navController: NavHostController,
     planet: Planet
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = planet.name)
+        // Page Header
+        Header(title = planet.name, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Climate: ${planet.climate}",
+                    "Terrain: ${planet.terrain}",
+                    "Population: ${planet.population} people",
+                    "Hours in a Day: ${planet.rotationPeriod}",
+                    "Days in a Year: ${planet.orbitalPeriod}",
+                    "Gravity Level: ${planet.gravity}"
+                )
+                TopInfo(url = "planet/${planet.id}", dataList = detailArray)
+            }
+            item {
+                ItemRow(
+                    title = "Films",
+                    type = "film",
+                    idList = planet.films,
+                    navController = navController
+                )
+            }
+            item {
+                if (planet.people.isNotEmpty()) {
+                    ItemRow(
+                        title = "Residents",
+                        type = "person",
+                        idList = planet.people,
+                        navController = navController
+                    )
+                }
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Climate: ${planet.climate}", "Terrain: ${planet.terrain}", "Population: ${planet.population} people",
-                "Hours in a Day: ${planet.rotationPeriod}", "Days in a Year: ${planet.orbitalPeriod}", "Gravity Level: ${planet.gravity}"
-            )
-            TopInfo(url = "planet/${planet.id}", dataList = detailArray)
-        }
-        item { ItemRow(title = "Films", type = "film", idList = planet.films, navController = navController) }
-        item { if (planet.people.isNotEmpty()) { ItemRow(title = "Residents", type = "person", idList = planet.people, navController = navController) } }
     }
 }
 
@@ -144,25 +248,46 @@ fun SpeciesDetailScreen(
     navController: NavHostController,
     species: Species
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = species.name)
+        // Page Header
+        Header(title = species.name, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Classification: ${species.classification}",
+                    "Designation: ${species.designation}",
+                    "Average Height: ${species.averageHeight}",
+                    "Skin Colors: ${species.skinColors}",
+                    "Hair Colors: ${species.hairColors}",
+                    "Eye Colors: ${species.eyeColors}",
+                    "Language: ${species.language}"
+                )
+                TopInfo(url = "species/${species.id}", dataList = detailArray)
+            }
+            item {
+                ItemRow(
+                    title = "Films",
+                    type = "film",
+                    idList = species.films,
+                    navController = navController
+                )
+            }
+            item {
+                ItemRow(
+                    title = "People",
+                    type = "person",
+                    idList = species.people,
+                    navController = navController
+                )
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Classification: ${species.classification}", "Designation: ${species.designation}", "Average Height: ${species.averageHeight}",
-                "Skin Colors: ${species.skinColors}", "Hair Colors: ${species.hairColors}", "Eye Colors: ${species.eyeColors}",
-                "Language: ${species.language}"
-            )
-            TopInfo(url = "species/${species.id}", dataList = detailArray)
-        }
-        item { ItemRow(title = "Films", type = "film", idList = species.films, navController = navController) }
-        item { ItemRow(title = "People", type = "person", idList = species.people, navController = navController) }
     }
 }
 
@@ -171,25 +296,48 @@ fun StarshipDetailScreen(
     navController: NavHostController,
     starship: Starship
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = starship.name)
+        // Page Header
+        Header(title = starship.name, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Model: ${starship.model}",
+                    "Manufacturer: ${starship.manufacturer}",
+                    "Cost in Credits: ${starship.costInCredits}",
+                    "Starship Class: ${starship.starshipClass}",
+                    "Crew Capacity: ${starship.crew}",
+                    "Passenger Capacity: ${starship.passengers}",
+                    "Hyperdrive Rating: ${starship.hyperdriveRating}"
+                )
+                TopInfo(url = "starship/${starship.id}", dataList = detailArray)
+            }
+            item {
+                ItemRow(
+                    title = "Films",
+                    type = "film",
+                    idList = starship.films,
+                    navController = navController
+                )
+            }
+            item {
+                if (starship.pilots.isNotEmpty()) {
+                    ItemRow(
+                        title = "Pilots",
+                        type = "person",
+                        idList = starship.pilots,
+                        navController = navController
+                    )
+                }
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Model: ${starship.model}", "Manufacturer: ${starship.manufacturer}", "Cost in Credits: ${starship.costInCredits}",
-                "Starship Class: ${starship.starshipClass}", "Crew Capacity: ${starship.crew}", "Passenger Capacity: ${starship.passengers}",
-                "Hyperdrive Rating: ${starship.hyperdriveRating}"
-            )
-            TopInfo(url = "species/${starship.id}", dataList = detailArray)
-        }
-        item { ItemRow(title = "Films", type = "film", idList = starship.films, navController = navController) }
-        item { ItemRow(title = "Pilots", type = "person", idList = starship.pilots, navController = navController) }
     }
 }
 
@@ -198,30 +346,73 @@ fun VehicleDetailScreen(
     navController: NavHostController,
     vehicle: Vehicle
 ) {
-    LazyColumn (
+    Column(
         Modifier
             .background(Color.Black)
-            .fillMaxSize()
     ) {
-        item {
-            // Page Header
-            Header(title = vehicle.name)
+        // Page Header
+        Header(title = vehicle.name, navController)
+
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+        ) {
+            item {
+                val detailArray = listOf<String>(
+                    "Model: ${vehicle.model}",
+                    "Manufacturer: ${vehicle.manufacturer}",
+                    "Cost in Credits: ${vehicle.costInCredits}",
+                    "Vehicle Class: ${vehicle.vehicleClass}",
+                    "Crew Capacity: ${vehicle.crew}",
+                    "Passenger Capacity: ${vehicle.passengers}",
+                    "Speed: ${vehicle.maxAtmospheringSpeed}km/h"
+                )
+                TopInfo(url = "vehicle/${vehicle.id}", dataList = detailArray)
+            }
+            item {
+                ItemRow(
+                    title = "Films",
+                    type = "film",
+                    idList = vehicle.films,
+                    navController = navController
+                )
+            }
+            item {
+                if (vehicle.pilots.isNotEmpty()) ItemRow(
+                    title = "Pilots",
+                    type = "person",
+                    idList = vehicle.pilots,
+                    navController = navController
+                )
+            }
         }
-        item {
-            val detailArray = listOf<String>(
-                "Model: ${vehicle.model}", "Manufacturer: ${vehicle.manufacturer}", "Cost in Credits: ${vehicle.costInCredits}",
-                "Vehicle Class: ${vehicle.vehicleClass}", "Crew Capacity: ${vehicle.crew}", "Passenger Capacity: ${vehicle.passengers}",
-                "Speed: ${vehicle.maxAtmospheringSpeed}km/h"
-            )
-            TopInfo(url = "species/${vehicle.id}", dataList = detailArray)
-        }
-        item { ItemRow(title = "Films", type = "film", idList = vehicle.films, navController = navController) }
-        item { if (vehicle.pilots.isNotEmpty()) ItemRow(title = "Pilots", type = "person", idList = vehicle.pilots, navController = navController) }
     }
 }
 
 @Composable
-fun Header(title: String) {
+fun Header(
+    title: String,
+    navController: NavHostController
+) {
+    Row(
+        Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(modifier = Modifier
+            .background(Color.White, shape = RoundedCornerShape(8.dp))
+            .padding(4.dp)
+            .clickable(onClick = {
+                navController.navigate("home")
+            })
+        ) {
+            Text(text = "HOME",
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold)
+            )
+        }
+    }
+
     Row(Modifier
         .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
@@ -286,13 +477,14 @@ fun TopInfo(url:String, dataList: List<String>) {
 @Composable
 fun ItemRow(title: String, type: String, idList: List<Int>, navController: NavHostController) {
     Column(modifier = Modifier
-        .height(200.dp)
+        .height(220.dp)
+        .padding(bottom = 40.dp)
     ) {
         // item header
         Text(
             text = title,
             style = TextStyle(
-                fontSize = 20.sp,
+                fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             ),

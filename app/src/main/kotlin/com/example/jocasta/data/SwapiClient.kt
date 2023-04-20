@@ -105,7 +105,7 @@ interface SwapiClient {
         @Query("page") page: Int
     ): Response<VehicleSet>
 
-    @GET("starships/")
+    @GET("vehicles/{id}")
     suspend fun fetchVehicle(
         @Path("id") id:Int
     ): Response<Vehicle>
