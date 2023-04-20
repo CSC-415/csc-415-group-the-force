@@ -1,6 +1,5 @@
 package com.example.jocasta.ui
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -74,18 +73,18 @@ fun FilmDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = film.title)
+            Header(title = film.title)
         }
         item {
             val detailArray = listOf<String>(
                 "Episode: ${film.id}", "Director: ${film.director}", "Producer(s): ${film.producer}", "Release Data: ${film.releaseDate}"
             )
             val filmId = if (film.id < 4) film.id+3 else film.id-3
-            topInfo(url = "film/${filmId}", dataList = detailArray)
+            TopInfo(url = "film/${filmId}", dataList = detailArray)
         }
-        item { itemRow("Characters", "person", film.people, navController) }
-        item { itemRow(title = "Planets", type = "planet", idList = film.planets, navController = navController) }
-        item { itemRow(title = "Species", type = "species", idList = film.species, navController = navController) }
+        item { ItemRow("Characters", "person", film.people, navController) }
+        item { ItemRow(title = "Planets", type = "planet", idList = film.planets, navController = navController) }
+        item { ItemRow(title = "Species", type = "species", idList = film.species, navController = navController) }
     }
 }
 
@@ -101,16 +100,16 @@ fun PersonDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = person.name)
+            Header(title = person.name)
         }
         item {
             val detailArray = listOf<String>(
                 "Gender: ${person.gender}", "Height: ${person.height}", "Hair Color: ${person.hairColor}",
                 "Eye Color: ${person.eyeColor}", "Skin Color: ${person.skinColor}", "Birth Year: ${person.birthYear}"
             )
-            topInfo(url = "person/${person.id}", dataList = detailArray)
+            TopInfo(url = "person/${person.id}", dataList = detailArray)
         }
-        item { itemRow(title = "Films", type = "film", idList = person.films, navController = navController) }
+        item { ItemRow(title = "Films", type = "film", idList = person.films, navController = navController) }
     }
 }
 
@@ -126,17 +125,17 @@ fun PlanetDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = planet.name)
+            Header(title = planet.name)
         }
         item {
             val detailArray = listOf<String>(
                 "Climate: ${planet.climate}", "Terrain: ${planet.terrain}", "Population: ${planet.population}",
                 "Hours in a Day: ${planet.rotationPeriod}", "Days in a Year: ${planet.orbitalPeriod}", "Gravity Level: ${planet.gravity}"
             )
-            topInfo(url = "planet/${planet.id}", dataList = detailArray)
+            TopInfo(url = "planet/${planet.id}", dataList = detailArray)
         }
-        item { itemRow(title = "Films", type = "film", idList = planet.films, navController = navController) }
-        item { if (planet.people.isNotEmpty()) { itemRow(title = "Residents", type = "person", idList = planet.people, navController = navController) } }
+        item { ItemRow(title = "Films", type = "film", idList = planet.films, navController = navController) }
+        item { if (planet.people.isNotEmpty()) { ItemRow(title = "Residents", type = "person", idList = planet.people, navController = navController) } }
     }
 }
 
@@ -152,7 +151,7 @@ fun SpeciesDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = species.name)
+            Header(title = species.name)
         }
         item {
             val detailArray = listOf<String>(
@@ -160,10 +159,10 @@ fun SpeciesDetailScreen(
                 "Skin Colors: ${species.skinColors}", "Hair Colors: ${species.hairColors}", "Eye Colors: ${species.eyeColors}",
                 "Language: ${species.language}"
             )
-            topInfo(url = "species/${species.id}", dataList = detailArray)
+            TopInfo(url = "species/${species.id}", dataList = detailArray)
         }
-        item { itemRow(title = "Films", type = "film", idList = species.films, navController = navController) }
-        item { itemRow(title = "People", type = "person", idList = species.people, navController = navController) }
+        item { ItemRow(title = "Films", type = "film", idList = species.films, navController = navController) }
+        item { ItemRow(title = "People", type = "person", idList = species.people, navController = navController) }
     }
 }
 
@@ -179,7 +178,7 @@ fun StarshipDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = starship.name)
+            Header(title = starship.name)
         }
         item {
             val detailArray = listOf<String>(
@@ -187,10 +186,10 @@ fun StarshipDetailScreen(
                 "Starship Class: ${starship.starshipClass}", "Crew Capacity: ${starship.crew}", "Passenger Capacity: ${starship.passengers}",
                 "Hyperdrive Rating: ${starship.hyperdriveRating}"
             )
-            topInfo(url = "species/${starship.id}", dataList = detailArray)
+            TopInfo(url = "species/${starship.id}", dataList = detailArray)
         }
-        item { itemRow(title = "Films", type = "film", idList = starship.films, navController = navController) }
-        item { itemRow(title = "Pilots", type = "person", idList = starship.pilots, navController = navController) }
+        item { ItemRow(title = "Films", type = "film", idList = starship.films, navController = navController) }
+        item { ItemRow(title = "Pilots", type = "person", idList = starship.pilots, navController = navController) }
     }
 }
 
@@ -206,7 +205,7 @@ fun VehicleDetailScreen(
     ) {
         item {
             // Page Header
-            header(title = vehicle.name)
+            Header(title = vehicle.name)
         }
         item {
             val detailArray = listOf<String>(
@@ -214,15 +213,15 @@ fun VehicleDetailScreen(
                 "Vehicle Class: ${vehicle.vehicleClass}", "Crew Capacity: ${vehicle.crew}", "Passenger Capacity: ${vehicle.passengers}",
                 "Speed: ${vehicle.maxAtmospheringSpeed}"
             )
-            topInfo(url = "species/${vehicle.id}", dataList = detailArray)
+            TopInfo(url = "species/${vehicle.id}", dataList = detailArray)
         }
-        item { itemRow(title = "Films", type = "film", idList = vehicle.films, navController = navController) }
-        item { if (vehicle.pilots.isNotEmpty()) itemRow(title = "Pilots", type = "person", idList = vehicle.pilots, navController = navController) }
+        item { ItemRow(title = "Films", type = "film", idList = vehicle.films, navController = navController) }
+        item { if (vehicle.pilots.isNotEmpty()) ItemRow(title = "Pilots", type = "person", idList = vehicle.pilots, navController = navController) }
     }
 }
 
 @Composable
-fun header(title: String) {
+fun Header(title: String) {
     Row(Modifier
         .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
@@ -253,7 +252,7 @@ fun header(title: String) {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun topInfo(url:String, dataList: List<String>) {
+fun TopInfo(url:String, dataList: List<String>) {
     Row(
         modifier = Modifier
             .padding(8.dp)
@@ -281,7 +280,7 @@ fun topInfo(url:String, dataList: List<String>) {
 }
 
 @Composable
-fun itemRow(title: String, type: String, idList: List<Int>, navController: NavHostController) {
+fun ItemRow(title: String, type: String, idList: List<Int>, navController: NavHostController) {
     Column(modifier = Modifier
         .height(200.dp)
     ) {
