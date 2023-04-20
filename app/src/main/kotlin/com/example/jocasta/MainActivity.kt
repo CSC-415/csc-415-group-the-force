@@ -7,6 +7,7 @@ import com.example.jocasta.ui.JocastaNavHost
 import com.example.jocasta.ui.theme.JocastaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

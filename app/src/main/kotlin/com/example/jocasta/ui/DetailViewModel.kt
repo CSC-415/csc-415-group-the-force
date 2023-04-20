@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.jocasta.data.model.Film
 import com.example.jocasta.data.model.Resource
 import com.example.jocasta.data.model.ResourceResponse
 import com.example.jocasta.data.repository.SwapiRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +32,7 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun fetchResource(type: String, id: Int) {
+        println("fetchResource")
         when (type) {
             "film" -> fetchFilm(id)
             "person" -> fetchPerson(id)
