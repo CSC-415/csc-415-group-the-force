@@ -263,7 +263,11 @@ fun TopInfo(url:String, dataList: List<String>) {
             modifier = Modifier
                 .padding(vertical = 8.dp, horizontal = 8.dp)
                 .width(180.dp)
-        )
+        ) {
+            it.error(
+                "https://raw.githubusercontent.com/CSC-415/csc-415-group-the-force/main/data/default.png"
+            )
+        }
         Column() {
             dataList.forEach {item ->
                 Text(text = item,
