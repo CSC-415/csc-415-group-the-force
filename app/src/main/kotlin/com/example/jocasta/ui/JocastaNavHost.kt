@@ -34,6 +34,7 @@ fun JocastaNavHost(
                 navArgument("id") { type = NavType.IntType }
             )
         ) {
+            //will delete later
             DetailRoute(navController = navController)
         }
     }

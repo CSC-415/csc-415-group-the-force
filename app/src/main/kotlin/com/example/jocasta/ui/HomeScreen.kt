@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
@@ -44,7 +44,6 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navController: NavHostController,
     filmSet: FilmSet,
-    //planetSet: PlanetSet
 ) {
     val gradient = Brush.linearGradient(
         colors = listOf(
@@ -84,8 +83,8 @@ fun HomeScreen(
     val personSetResponse = viewModel.personSetState.collectAsState().value
     val planetSetResponse = viewModel.planetSetState.collectAsState().value
     val speciesSetResponse = viewModel.speciesSetState.collectAsState().value
-    val starShipResponse = viewModel.starshipSetState.collectAsState().value
-    val vehicleResponse = viewModel.vehicleSetState.collectAsState().value
+    val starShipSetResponse = viewModel.starshipSetState.collectAsState().value
+    val vehicleSetResponse = viewModel.vehicleSetState.collectAsState().value
 
 
     LazyColumn(
@@ -125,13 +124,6 @@ fun HomeScreen(
             else -> { /* swallow - show nothing */ }
         }
 
-//        item {
-//            ContentRow(
-//                navController = navController,
-//                resources = planetSet.planets
-//            )
-//        }
-
         when (planetSetResponse) {
             is ResourceSetFetchState.Success -> {
                 item {
@@ -169,7 +161,7 @@ fun HomeScreen(
 
             else -> { /* swallow - show nothing */ }
         }
-        when (starShipResponse) {
+        when (starShipSetResponse) {
             is ResourceSetFetchState.Success -> {
                 item {
                     ContentHeader(
@@ -180,14 +172,14 @@ fun HomeScreen(
                 item {
                     ContentRow(
                         navController = navController,
-                        resources = (starShipResponse.resourceSet as StarshipSet).starships
+                        resources = (starShipSetResponse.resourceSet as StarshipSet).starships
                     )
                 }
             }
 
             else -> { /* swallow - show nothing */ }
         }
-        when (vehicleResponse) {
+        when (vehicleSetResponse) {
             is ResourceSetFetchState.Success -> {
                 item {
                     ContentHeader(
@@ -198,7 +190,7 @@ fun HomeScreen(
                 item {
                     ContentRow(
                         navController = navController,
-                        resources = (vehicleResponse.resourceSet as VehicleSet).vehicles
+                        resources = (vehicleSetResponse.resourceSet as VehicleSet).vehicles
                     )
                 }
             }
