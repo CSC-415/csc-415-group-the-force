@@ -25,6 +25,7 @@ fun ResourceCard(
         is Planet -> "planet/${resource.id}"
         is Species -> "species/${resource.id}"
         is Starship -> "starhip/${resource.id}"
+        is Vehicle -> "vehicle/${resource.id}"
 
         else -> "film/1"
     }
